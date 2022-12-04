@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.bluerayws.avit.ui.home.HomeFragment"
+        android:label="@string/home_store"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoryFragment2"
+            app:destination="@id/categoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.bluerayws.avit.ui.account.AccountFragment"
+        android:label="@string/account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/bagFragment"
+        android:name="com.bluerayws.avit.ui.home.BagFragment"
+        android:label="@string/bag"
+        tools:layout="@layout/fragment_bag" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.bluerayws.avit.ui.home.CategoryFragment"
+        android:label="@string/categories"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_categoryFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/forgetPassFragment"
+        android:name="com.bluerayws.avit.ui.login.ForgetPassFragment"
+        android:label="fragment_forget_pass"
+        tools:layout="@layout/fragment_forget_pass" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.bluerayws.avit.ui.account.AboutUsFragment"
+        android:label="fragment_help_center"
+        tools:layout="@layout/fragment_help_center" />
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.bluerayws.avit.ui.home.LocationFragment"
+        android:label="@string/location"
+        tools:layout="@layout/fragment_location" />
+    <dialog
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.bluerayws.avit.ui.account.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
+    <fragment
+        android:id="@+id/personalInfoFragment"
+        android:name="com.bluerayws.avit.ui.account.PersonalInfoFragment"
+        android:label="fragment_personal_info"
+        tools:layout="@layout/fragment_personal_info" />
+    <fragment
+        android:id="@+id/myOrderFragment"
+        android:name="com.bluerayws.avit.ui.account.MyOrderFragment"
+        android:label="@string/my_orders"
+        tools:layout="@layout/fragment_my_order" />
+    <fragment
+        android:id="@+id/agreementsFragment"
+        android:name="com.bluerayws.avit.ui.account.AgreementsFragment"
+        android:label="fragment_agreements"
+        tools:layout="@layout/fragment_agreements" />
+    <fragment
+        android:id="@+id/helpCenterFragment"
+        android:name="com.bluerayws.avit.ui.account.HelpCenterFragment"
+        android:label="fragment_help_center"
+        tools:layout="@layout/fragment_help_center" />
+    <fragment
+        android:id="@+id/myPointFragment"
+        android:name="com.bluerayws.avit.ui.account.MyPointFragment"
+        android:label="fragment_my_point"
+        tools:layout="@layout/fragment_my_point" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.bluerayws.avit.ui.home.FavoriteFragment"
+        android:label="@string/favourite"
+        tools:layout="@layout/fragment_favorite" />
+</navigation>

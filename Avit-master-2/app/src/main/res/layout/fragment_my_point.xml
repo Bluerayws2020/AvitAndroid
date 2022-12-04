@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.MyPointFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_very_big"
+                android:text="@string/rewards"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="@dimen/margin_big"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_my_point_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_my_point_title"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tv_my_point_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_big"
+                android:padding="@dimen/margin_small"
+                android:text="@string/my_point"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_big"
+                android:background="@drawable/shape_my_point"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_my_point_title">
+
+                <TextView
+                    android:id="@+id/tv_point_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_big"
+                    android:text="500"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_point_"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@id/tv_point_"
+                    android:gravity="center|start"
+                    android:text="@string/point"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_point_"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_big"
+                    android:text="TextView"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_point"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_big"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_very_big"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

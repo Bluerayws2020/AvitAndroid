@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.HelpCenterFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_big"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_very_big"
+                android:background="@color/white5"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whats_app"
+                tools:ignore="TouchTargetSizeCheck">
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:src="@drawable/ic_help_mail" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_toEndOf="@id/imageView8"
+                    android:text="@string/get_support_mail"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_very_small" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView22"
+                    android:layout_toEndOf="@id/imageView8"
+                    android:text="+9627876325"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/text_very_small" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/whats_app"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_big"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_very_big"
+                android:background="@color/white5"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_call"
+                tools:ignore="TouchTargetSizeCheck">
+
+                <ImageView
+                    android:id="@+id/imageView81"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:src="@drawable/ic_help_whatsapp" />
+
+                <TextView
+                    android:id="@+id/textView221"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_toEndOf="@id/imageView81"
+                    android:text="@string/get_support_whatsapp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_very_small" />
+
+                <TextView
+                    android:id="@+id/textView231"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView221"
+                    android:layout_toEndOf="@id/imageView81"
+                    android:text="+9627876325"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/text_very_small" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_medium"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="@dimen/margin_big"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_help_center_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_help_center_title"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tv_help_center_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_big"
+                android:padding="@dimen/margin_small"
+                android:text="@string/help_center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/not225"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_very_big"
+                android:padding="@dimen/margin_small"
+                android:text="@string/contact_us"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_help_center" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_help_center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_big"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_very_big"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_help_center_title" />
+
+            <RelativeLayout
+                android:id="@+id/phone_call"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_very_big"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_very_big"
+                android:background="@color/white5"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/not225">
+
+                <ImageView
+                    android:id="@+id/imageView82"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:src="@drawable/ic_help_call" />
+
+                <TextView
+                    android:id="@+id/textView222"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_toEndOf="@id/imageView82"
+                    android:text="@string/do_you_need_help"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_very_small" />
+
+                <TextView
+                    android:id="@+id/textView232"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView222"
+                    android:layout_toEndOf="@id/imageView82"
+                    android:text="+9627876325"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/text_very_small" />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

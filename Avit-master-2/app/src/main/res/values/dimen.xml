@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_width">280dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="radius_button">25dp</dimen>
+    <dimen name="radius">25dp</dimen>
+    <dimen name="radius_edit_text">20dp</dimen>
+    <dimen name="margin_medium">9sp</dimen>
+    <dimen name="margin">9sp</dimen>
+    <dimen name="margin_big">15sp</dimen>
+    <dimen name="margin_very_big">30sp</dimen>
+    <dimen name="margin_small">5sp</dimen>
+    <dimen name="image_size">35dp</dimen>
+    <dimen name="image_profile_size">100dp</dimen>
+    <dimen name="text_big">24sp</dimen>
+    <dimen name="text_medium">18sp</dimen>
+    <dimen name="text_small">16sp</dimen>
+    <dimen name="text_very_small">14sp</dimen>
+</resources>

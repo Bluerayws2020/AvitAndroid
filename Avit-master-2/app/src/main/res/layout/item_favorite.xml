@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="$19.99"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            app:srcCompat="@drawable/img_artboard68"
+            android:contentDescription="@string/product_image" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/favourite_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imageView4"
+            android:layout_alignEnd="@id/imageView4"
+            android:layout_margin="10dp"
+            android:button="@drawable/selector_favorite"
+            android:contentDescription="@string/favourite"
+            android:elevation="7dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Product Name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Sub Name"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/product_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
