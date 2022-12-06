@@ -22,7 +22,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ProductHomeAdapter(val list: List<ProductsDataMain>, val context: Context) :
+class ProductHomeAdapter(private val list: List<ProductsDataMain>, private val context: Context, private val favClick: FavoriteClick) :
     RecyclerView.Adapter<ProductHomeAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -34,8 +34,14 @@ class ProductHomeAdapter(val list: List<ProductsDataMain>, val context: Context)
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val data = list[position]
         holder.binding.productName.text = data.name_ar
-//        holder.binding.productPrice.text = data.sale_price
+//        holder.binding.productPrice.text = data.name_ar
 
+
+        holder.binding.favouriteClick.setOnClickListener{
+            favClick.onItemClicked("ar", data.id)
+//            data.wishlist = 1
+        }
+        Log.d("WIsh List: ", "onBindViewHolder: " + data.wishlist)
 
         if (data.wishlist == 1) {
 

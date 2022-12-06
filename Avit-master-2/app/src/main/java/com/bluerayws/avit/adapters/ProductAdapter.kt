@@ -1,13 +1,21 @@
 package com.bluerayws.avit.adapters
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bluerayws.avit.R
 import com.bluerayws.avit.databinding.ItemFavoriteBinding
+import com.bluerayws.avit.dataclass.ProductWishlist
 import com.bluerayws.avit.dataclass.TestClass
 import com.bluerayws.avit.dataclass.customer_wishlist
+import com.bluerayws.avit.ui.activities.ProductActivity
+import com.bumptech.glide.Glide
 
-class ProductAdapter(val list: ArrayList<TestClass>, private val click: ItemClicked) :  // TestClass to customer Wishlist
+class ProductAdapter(private val list: List<ProductWishlist>, private val context: Context, private val flag_fav :Int, private val favoriteClick: FavoriteClick) :  // TestClass to customer Wishlist
     RecyclerView.Adapter<ProductAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -18,11 +26,39 @@ class ProductAdapter(val list: ArrayList<TestClass>, private val click: ItemClic
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val data = list[position]
-        holder.binding.productName.text = data.name
+
+
+        if (flag_fav == 1) {
+            holder.binding.favouriteClick.buttonDrawable =
+                ContextCompat.getDrawable(context,com.bluerayws.avit.R.drawable.ic_favorite_heart_selected)
+        }
+
+
+        holder.binding.productName.text = data.product_name_en
+        holder.binding.productPrice.text = data.product_sale_price
+
+
+//        Glide.with(context)
+//            .load(data.image)
+//            .placeholder(R.drawable.img_artboard68)
+//            .error(R.drawable.img_artboard68)
+//            .into(holder.binding.imageView4)
+
+
 
         holder.binding.root.setOnClickListener {
-            click.onItemClicked()
+
+            val intent = Intent(context, ProductActivity::class.java)
+            intent.putExtra("product_id", data.product_id)
+            context.startActivity(intent)
         }
+
+        holder.binding.favouriteClick.setOnClickListener {
+            favoriteClick.onItemClicked("ar", data.product_id)
+
+        }
+
+
     }
 
     override fun getItemCount(): Int {

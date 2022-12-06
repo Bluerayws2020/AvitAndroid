@@ -23,6 +23,8 @@ object HelperUtils {
     const val PHONE_PROVIDER = "phoneRegister"
     const val CONTACT_US_URL = "front_end/contact_us"
     const val ABOUT_US_URL = "front_end/aboutUs"
+    const val BASE_URL= "https://avit2.br-ws.com/"
+
 
     fun getLang(mContext: Context?): String {
         val sharedPreferences = mContext?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)

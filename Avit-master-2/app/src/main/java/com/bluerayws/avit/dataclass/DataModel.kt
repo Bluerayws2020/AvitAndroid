@@ -283,7 +283,7 @@ data class Categories(
 data class ProductsHomeMain(
     @SerializedName ("status") val status: Boolean,
     @SerializedName ("meta") val meta: MetaMain,
-    @SerializedName ("products_data") val products_data: List<ProductsDataMain>,
+    @SerializedName ("products_data") val products_data: List<ProductsDataMain>
 
 
     )
@@ -295,7 +295,6 @@ data class MetaMain(
     @SerializedName ("recordsOnCurrentPage") val recordsOnCurrentPage: Int,
     @SerializedName ("recordFrom") val recordFrom: Int,
     @SerializedName ("recordTo") val recordTo: Int,
-
 
     )
 
@@ -311,8 +310,268 @@ data class ProductsDataMain(
     @SerializedName ("image") val image: String,
     @SerializedName ("wishlist") var wishlist: Int
 
+)
+
+
+
+data class ProductDetailsMain(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("product_details") val product_details: ProductDetails
 
 )
+
+data class ProductDetails(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("category_id") val category_id: String,
+    @SerializedName ("design_id") val design_id: String,
+    @SerializedName ("brand_id") val brand_id: String,
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") val name_en: String,
+    @SerializedName ("description_en") val description_en: String,
+    @SerializedName ("description_ar") val description_ar: String,
+    @SerializedName ("sale_price") val sale_price: String,
+    @SerializedName ("on_sale_price") val on_sale_price: String,
+//    @SerializedName ("on_sale_price_status") val on_sale_price_status: String,
+    @SerializedName ("material_en") val material_en: String,
+    @SerializedName ("material_ar") val material_ar: String,
+    @SerializedName ("Ironing_and_washing_information_en") val Ironing_and_washing_information_en: String,
+    @SerializedName ("Ironing_and_washing_information_ar") val Ironing_and_washing_information_ar: String,
+    @SerializedName ("quantity_available") val quantity_available: String,
+    @SerializedName ("quantity_limit") val quantity_limit: String,
+    @SerializedName ("image") val image: String,
+    @SerializedName ("erp_created_at") val erp_created_at: String,
+    @SerializedName ("erp_updated_at") val erp_updated_at: String,
+    @SerializedName ("currency_code") val currency_code: String,
+    @SerializedName ("colors") val colors: List<Colors>,
+    @SerializedName ("sizes") val sizes: List<Sizes>,
+    @SerializedName ("product_images") val product_images: List<ProductImages>,
+    @SerializedName ("product_small_images") val product_small_images: List<ProductImages>,
+
+    )
+
+
+data class Colors(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("color_name_ar") val color_name_ar: String,
+    @SerializedName ("color_name_en") val color_name_en: String
+
+    )
+
+data class Sizes(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("size_name_ar") val size_name_ar: String,
+    @SerializedName ("size_name_en") val size_name_en: String
+
+    )
+
+data class ProductImages(
+    @SerializedName ("image") val image: String,
+    @SerializedName ("color_id") val color_id: String
+
+    )
+
+
+
+data class RelatedProducts(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("related_products") val related_products: List<RelatedProductsItems>
+
+    )
+
+
+data class RelatedProductsItems(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") val name_en: String,
+    @SerializedName ("description_ar") val description_ar: String,
+    @SerializedName ("description_en") val description_en: String,
+    @SerializedName ("image") val image: String
+
+    )
+
+
+data class Product(
+    @SerializedName ("lang") val lang: String,
+    @SerializedName ("product_ids") val product_ids: List<String>
+)
+
+
+
+data class RequestWishlist(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String
+
+    )
+
+
+
+
+
+data class ProductWishListMain(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("Product_Wishlist") val Product_Wishlist: List<ProductWishlist>
+
+    )
+
+
+data class ProductWishlist(
+    @SerializedName ("product_id") val product_id: String,
+    @SerializedName ("id") val id: Int,
+    @SerializedName ("product_name_ar") val product_name_ar: String,
+    @SerializedName ("product_name_en") val product_name_en: String,
+    @SerializedName ("category_name_ar") val category_name_ar: String,
+    @SerializedName ("category_name_en") val category_name_en: String,
+    @SerializedName ("image") val image: String,
+    @SerializedName ("product_currency_code") val product_currency_code: String,
+    @SerializedName ("product_sale_price") val product_sale_price: String,
+    @SerializedName ("product_on_sale_price") val product_on_sale_price: String,
+    @SerializedName ("product_on_sale_price_status") val product_on_sale_price_status: String
+
+    )
+
+
+
+
+data class AddToBag(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+
+    )
+
+
+
+data class CustomerCart(
+    @SerializedName ("status") val status: Int,
+    @SerializedName ("success") val success: Boolean,
+    @SerializedName ("customer_cart_header") val customer_cart_header: CustomerCartHeader,
+    @SerializedName ("customer_cart_data") val customer_cart_data: List<CustomerCartData>
+
+    )
+
+data class CustomerCartHeader(
+    @SerializedName ("subTotal") val subTotal: String,
+    @SerializedName ("tax") val tax: String,
+    @SerializedName ("promoCode") val promoCode: String,
+    @SerializedName ("endTotal") val endTotal: String,
+
+    )
+
+data class CustomerCartData(
+    @SerializedName ("id") val id: Int,
+    @SerializedName ("user_id") val user_id: Int,
+    @SerializedName ("user_type") val user_type: String,
+//    @SerializedName ("device_id") val device_id: String,
+    @SerializedName ("product_id") val product_id: String,
+    @SerializedName ("quantity") val quantity: String,
+    @SerializedName ("size_id") val size_id: String,
+    @SerializedName ("color_id") val color_id: String,
+    @SerializedName ("created_at") val created_at: String,
+    @SerializedName ("updated_at") val updated_at: String,
+    @SerializedName ("itemPrice") val itemPrice: String,
+    @SerializedName ("itemSubTotal") val itemSubTotal: String,
+    @SerializedName ("itemTax") val itemTax: String,
+    @SerializedName ("itemEndTotal") val itemEndTotal: String,
+    @SerializedName ("product_name_en") val product_name_en: String,
+    @SerializedName ("product_name_ar") val product_name_ar: String,
+    @SerializedName ("product_image") val product_image: String,
+    @SerializedName ("size_name_en") val size_name_en: String,
+    @SerializedName ("size_name_ar") val size_name_ar: String,
+    @SerializedName ("color_name_en") val color_name_en: String,
+    @SerializedName ("color_name_ar") val color_name_ar: String,
+    @SerializedName ("wishlist") val wishlist: String
+
+    )
+
+
+
+data class DeleteFromCart(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String
+
+    )
+
+
+
+data class BrandItems(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("brands") val brands: List<Brands>
+
+    )
+
+data class Brands(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") val name_en: String,
+    @SerializedName ("image") val image: String,
+    @SerializedName ("url") val url: String,
+    var isSelected:Boolean = false
+
+)
+
+
+data class BrandsMain(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("meta") val meta: MetaMain,
+    @SerializedName ("products_data") val products_data: List<BrandItemsMain>
+
+
+)
+
+
+data class BrandItemsMain(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") var name_en: String,
+    @SerializedName ("sale_price") var sale_price: String,
+    @SerializedName ("on_sale_price") var on_sale_price: String,
+    @SerializedName ("material_en") val material_en: String,
+    @SerializedName ("material_ar") val material_ar: String,
+    @SerializedName ("description_en") val description_en: String,
+    @SerializedName ("description_ar") val description_ar: String,
+    @SerializedName ("image") val image: String,
+    @SerializedName ("wishlist") var wishlist: Int
+
+)
+
+
+
+data class SimilarItemsMain(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("products_data") val products_data: List<SimilarItems>
+
+    )
+
+
+
+data class SimilarItems(
+    @SerializedName ("product_id") val product_id: String,
+    @SerializedName ("product_name_ar") val product_name_ar: String,
+    @SerializedName ("product_name_en") var product_name_en: String,
+    @SerializedName ("product_sale_price") var product_sale_price: String,
+    @SerializedName ("product_on_sale_price") var product_on_sale_price: String,
+    @SerializedName ("category_name_ar") val category_name_ar: String,
+    @SerializedName ("category_name_en") val category_name_en: String,
+    @SerializedName ("image") val image: String
+
+    )
+
+
+
+
+
 
 
 

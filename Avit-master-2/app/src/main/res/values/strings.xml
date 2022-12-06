@@ -270,6 +270,7 @@
     <string name="enter_text_here">Enter text here</string>
     <string name="textview">TextView</string>
     <string name="item">item</string>
+    <string name="similar_products">Similar Products</string>
 
 
 </resources>

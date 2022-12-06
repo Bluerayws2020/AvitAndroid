@@ -9,12 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.http.Header
+import org.json.JSONObject
 import retrofit2.http.Part
 import java.io.File
+
 
 object CMainRepo {
 
@@ -42,7 +42,6 @@ object CMainRepo {
         }
 
 
-
     }
 
     suspend fun userSignUp(
@@ -60,13 +59,15 @@ object CMainRepo {
 
         ): NetworkResults<CustomerRegister> {
         return withContext(Dispatchers.IO) {
-            val provider_statusBody = provider_status.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val provider_statusBody =
+                provider_status.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val name_enBody = name_en.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val name_arBody = name_ar.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val phoneBody = phone.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val passwordBody = password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-            val confirmPasswordBody = conPassword.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val confirmPasswordBody =
+                conPassword.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val country_idBody = country_id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val region_idBody = region_id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val usernameBody = username.toRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -97,14 +98,12 @@ object CMainRepo {
     }
 
 
-
-
     suspend fun userLogIn(
         email: String,
         password: String,
         language: String
 
-        ): NetworkResults<CustomerLogin> {
+    ): NetworkResults<CustomerLogin> {
         return withContext(Dispatchers.IO) {
             val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val passwordBody = password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -128,9 +127,6 @@ object CMainRepo {
             }
         }
     }
-
-
-
 
 
     suspend fun userInfo(
@@ -172,7 +168,7 @@ object CMainRepo {
         token: String,
         image: File?
 
-        ): NetworkResults<UpdateCustomerInfo> {
+    ): NetworkResults<UpdateCustomerInfo> {
         return withContext(Dispatchers.IO) {
             val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val nameArBody = name_ar.toRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -234,9 +230,11 @@ object CMainRepo {
     ): NetworkResults<ResetPassword> {
         return withContext(Dispatchers.IO) {
             val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-            val currentPasswordBody = currentPassword.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val currentPasswordBody =
+                currentPassword.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val passwordBody = password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-            val passwordConfirmationBody = passwordConfirmation.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val passwordConfirmationBody =
+                passwordConfirmation.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
             try {
                 val results = ApiClient.retrofitService.resetPassword(
@@ -257,7 +255,6 @@ object CMainRepo {
             }
         }
     }
-
 
 
     suspend fun getLocationsCustomers(
@@ -284,7 +281,6 @@ object CMainRepo {
             }
         }
     }
-
 
 
     suspend fun getAboutUs(
@@ -359,7 +355,6 @@ object CMainRepo {
     }
 
 
-
     suspend fun getDelivery(
         language: String
 
@@ -384,7 +379,6 @@ object CMainRepo {
     }
 
 
-
     suspend fun getPaymentMethods(
         language: String
 
@@ -407,7 +401,6 @@ object CMainRepo {
             }
         }
     }
-
 
 
     suspend fun getCategories(
@@ -459,7 +452,303 @@ object CMainRepo {
             }
         }
     }
+//    getProductsDetails
 
 
+    suspend fun getProductsDetails(
+        language: String,
+        productId: String
+
+    ): NetworkResults<ProductDetailsMain> {
+        return withContext(Dispatchers.IO) {
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getProductsDetails(
+                    langBody,
+                    productIdBody
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Product Details Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+    suspend fun getRelatedProduct(
+        product: Product
+
+
+    ): NetworkResults<RelatedProducts> {
+        return withContext(Dispatchers.IO) {
+
+//            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getRelatedProducts(
+                    product
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Related Products Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+    suspend fun getRequestProduct(
+        language: String,
+        productId: String,
+        token: String
+
+    ): NetworkResults<RequestWishlist> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getRequestProduct(
+                    langBody,
+                    productIdBody,
+                    token
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Request Products Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+    suspend fun getProductWishList(
+        language: String,
+        token: String
+
+    ): NetworkResults<ProductWishListMain> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getProductWishList(
+                    langBody,
+                    token
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Product WishList Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+    suspend fun addToBag(
+        language: String,
+        product_id: String,
+        quantity: String,
+        color_id: String,
+        size_id: String,
+        token: String
+
+
+    ): NetworkResults<AddToBag> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val proIdBody = product_id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val quantityBody = quantity.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val colorIdBody = color_id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val sizeIdBody = size_id.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.addToBag(
+                    langBody,
+                    proIdBody,
+                    quantityBody,
+                    colorIdBody,
+                    sizeIdBody,
+                    token
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Add to Bag Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+    suspend fun getCustomerCart(
+        language: String,
+        token: String
+
+
+    ): NetworkResults<CustomerCart> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getCustomerCart(
+                    langBody,
+                    token
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Customer Cart Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+    suspend fun removeFromCart(
+        language: String,
+        cartItemId: String,
+        token: String
+
+
+    ): NetworkResults<DeleteFromCart> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val cartItemIdBody = cartItemId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.deleteFromCart(
+                    langBody,
+                    cartItemIdBody,
+                    token
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Delete Item Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+//    getBrands
+
+
+    suspend fun getBrands(
+        language: String
+
+    ): NetworkResults<BrandItems> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getBrands(
+                    langBody
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Brand Items Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+//    getProductsByBrandId
+
+
+    suspend fun getProductsByBrandId(
+        language: String,
+        brandId: String
+
+    ): NetworkResults<BrandsMain> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val brandIdBody = brandId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getProductsByBrandId(
+                    langBody,
+                    brandIdBody
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Products of Brand Id Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+//    getSimilarItems
+
+
+    suspend fun getSimilarItems(
+        language: String,
+        token: String
+
+    ): NetworkResults<SimilarItemsMain> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getSimilarItems(
+                    langBody,
+                    token
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Similar Items Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
 
 }

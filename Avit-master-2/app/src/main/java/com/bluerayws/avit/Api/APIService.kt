@@ -1,6 +1,7 @@
 package com.bluerayws.avit.Api
 
 import com.bluerayws.avit.dataclass.*
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -170,6 +171,120 @@ interface APIService {
 
 
     ): ProductsHomeMain
+
+
+
+    @Multipart
+    @POST("frontend/getProductDetails")
+    suspend fun getProductsDetails(
+        @Part("lang") lang: RequestBody,
+        @Part("product_number") product_number: RequestBody,
+
+
+    ): ProductDetailsMain
+
+
+
+    @POST("customer/relatedProduct")
+    fun getRelatedProducts(
+        @Body product: Product?
+
+    ) : RelatedProducts
+
+
+
+
+
+    @Multipart
+    @POST("customer/customerWishlistRequest")
+    suspend fun getRequestProduct(
+        @Part("lang") lang: RequestBody,
+        @Part("product_id") product_id: RequestBody,
+        @Header ("Authorization") auth:String
+
+        ): RequestWishlist
+
+
+
+
+    @Multipart
+    @POST("customer/customerWishlist")
+    suspend fun getProductWishList(
+        @Part("lang") lang: RequestBody,
+        @Header ("Authorization") auth:String
+
+    ): ProductWishListMain
+
+
+
+
+    @Multipart
+    @POST("customer/addToCart")
+    suspend fun addToBag(
+        @Part("lang") lang: RequestBody,
+        @Part ("product_id") product_id:RequestBody,
+        @Part ("quantity") quantity:RequestBody,
+        @Part ("color_id") color_id:RequestBody,
+        @Part ("size_id") size_id:RequestBody,
+        @Header ("Authorization") auth:String
+
+
+    ): AddToBag
+
+
+
+
+     @Multipart
+     @POST("customer/getCart")
+     suspend fun getCustomerCart(
+         @Part("lang") lang: RequestBody,
+         @Header ("Authorization") auth:String
+
+     ): CustomerCart
+
+
+//    DeleteFromCart
+
+    @Multipart
+    @POST("customer/deleteFromCart")
+    suspend fun deleteFromCart(
+        @Part("lang") lang: RequestBody,
+        @Part("cart_temp_id") cart_temp_id: RequestBody,
+        @Header ("Authorization") auth:String
+
+    ): DeleteFromCart
+
+
+
+
+    @Multipart
+    @POST("frontend/getBrands")
+    suspend fun getBrands(
+        @Part("lang") lang: RequestBody
+
+    ): BrandItems
+
+
+
+
+    @Multipart
+    @POST("frontend/getProductsOfCategoryNoORBrandNo")
+    suspend fun getProductsByBrandId(
+        @Part("lang") lang: RequestBody,
+        @Part("brand_id") brand_id: RequestBody
+
+    ): BrandsMain
+
+
+
+
+    @Multipart
+    @POST("customer/similarProductsOfWishlist")
+    suspend fun getSimilarItems(
+        @Part("lang") lang: RequestBody,
+        @Header ("Authorization") auth:String
+
+    ): SimilarItemsMain
 
 
 

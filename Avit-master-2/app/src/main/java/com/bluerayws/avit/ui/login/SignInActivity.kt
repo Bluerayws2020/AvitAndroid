@@ -85,6 +85,7 @@ class SignInActivity : AppCompatActivity() {
             Log.i("TAG", "access_token: " + user.access_token)
 
         }.apply()
+
     }
 
 

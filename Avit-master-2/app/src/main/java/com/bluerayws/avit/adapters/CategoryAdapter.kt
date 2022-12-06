@@ -40,15 +40,15 @@ class CategoryAdapter(
         }
 
 
-        if (list[position].isSelected){
-            holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
-            holder.binding.radioCategory.setTextColor(context.getColor(R.color.white))
+//        if (list[position].isSelected){
+//            holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
+//            holder.binding.radioCategory.setTextColor(context.getColor(R.color.white))
+//
+//        }else{
+//            holder.binding.radioCategory.setBackgroundResource(R.drawable.selector_prand)
+//            holder.binding.radioCategory.setTextColor(context.getColor(R.color.black))
 
-        }else{
-            holder.binding.radioCategory.setBackgroundResource(R.drawable.selector_prand)
-            holder.binding.radioCategory.setTextColor(context.getColor(R.color.black))
-
-        }
+//        }
         holder.binding.radioCategory.setOnClickListener {
             onclickListener(list[position])
 

@@ -22,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
         var ComeFromLogin = false
+        lateinit var tokenObj: String
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -69,8 +70,12 @@ class HomeActivity : AppCompatActivity() {
 
 
         val token = sharedPreferences.getString("access_token", "defaultname")
+        if (token != null) {
+            tokenObj = token
+        }
         Toast.makeText(applicationContext, token.toString(), Toast.LENGTH_SHORT).show()
         Log.i("TAG", "token: " + token)
+        Log.d("tokken", "onCreate: $tokenObj")
 
     }
 }
