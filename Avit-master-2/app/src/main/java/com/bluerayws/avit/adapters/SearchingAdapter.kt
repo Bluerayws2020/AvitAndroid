@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bluerayws.avit.R
 import com.bluerayws.avit.databinding.ItemFavoriteBinding
 import com.bluerayws.avit.dataclass.ProductWishlist
-import com.bluerayws.avit.dataclass.SimilarItems
+import com.bluerayws.avit.dataclass.ProductsOfSearching
+import com.bluerayws.avit.dataclass.SearchOfProducts
 import com.bluerayws.avit.ui.activities.ProductActivity
 import com.bumptech.glide.Glide
 
-class SimilarItemsAdapter(private val list: List<SimilarItems>,
-                          private val context: Context, private val favoriteClick: FavoriteClick) :
-    RecyclerView.Adapter<SimilarItemsAdapter.Holder>() {
+class SearchingAdapter (private val list: List<ProductsOfSearching>,
+                        private val context: Context,
+                        private val favoriteClick: FavoriteClick) :
+    RecyclerView.Adapter<SearchingAdapter.Holder>() {
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -28,14 +30,10 @@ class SimilarItemsAdapter(private val list: List<SimilarItems>,
             val data = list[position]
 
 
-//            if (flag_fav == 1) {
-//                holder.binding.favouriteClick.buttonDrawable =
-//                    ContextCompat.getDrawable(context,com.bluerayws.avit.R.drawable.ic_favorite_heart_selected)
-//            }
 
-
-            holder.binding.productName.text = data.product_name_en
-            holder.binding.productPrice.text = data.product_sale_price
+            holder.binding.productName.text = data.name_ar
+            holder.binding.textView11.text = data.name_en
+            holder.binding.productPrice.text = data.description_ar
 
 
         Glide.with(context)
@@ -49,7 +47,8 @@ class SimilarItemsAdapter(private val list: List<SimilarItems>,
             holder.binding.root.setOnClickListener {
 
                 val intent = Intent(context, ProductActivity::class.java)
-                intent.putExtra("product_id", data.product_id)
+                intent.putExtra("product_id", data.id)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             }
 
@@ -67,5 +66,4 @@ class SimilarItemsAdapter(private val list: List<SimilarItems>,
 
         class Holder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root)
 
-
-    }
+}

@@ -21,6 +21,8 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     private val getBrandsLiveData= MutableLiveData<NetworkResults<BrandItems>>()
     private val getProductsByBrandIdLiveData= MutableLiveData<NetworkResults<BrandsMain>>()
     private val getSimilarItemsLiveData= MutableLiveData<NetworkResults<SimilarItemsMain>>()
+    private val getProductsOfSearchingLiveData= MutableLiveData<NetworkResults<SearchOfProducts>>()
+    private val updateQuantityCartLiveData= MutableLiveData<NetworkResults<UpdateCartQuantity>>()
 
 
 
@@ -57,15 +59,15 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
 
 
 
-    fun getRelatedProduct(
-        product: Product
-
-    ) {
-        viewModelScope.launch {
-            getRelatedProductsLiveData.value =  categoryRepo.getRelatedProduct(product)
-
-        }
-    }
+//    fun getRelatedProduct(
+//        product: Product
+//
+//    ) {
+//        viewModelScope.launch {
+//            getRelatedProductsLiveData.value =  categoryRepo.getRelatedProduct(product)
+//
+//        }
+//    }
 
 
 
@@ -171,6 +173,34 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     }
 
 
+//    getProductsOfSearching
+
+
+    fun getProductsOfSearching(
+        language: String,
+        name: String
+    ) {
+        viewModelScope.launch {
+            getProductsOfSearchingLiveData.value =  categoryRepo.getProductsOfSearching(language, name)
+
+        }
+    }
+
+
+
+    fun updateQuantityCart(
+        language: String,
+        productId: String,
+        quantity: Int,
+        colorId: String,
+        sizeId: String,
+        token: String
+    ) {
+        viewModelScope.launch {
+            updateQuantityCartLiveData.value =  categoryRepo.updateCartQuantity(language, productId, quantity, colorId, sizeId, "Bearer $token")
+
+        }
+    }
 
 
 
@@ -189,6 +219,8 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     fun getBrandsResponse() = getBrandsLiveData
     fun getProductsByBrandIdResponse() = getProductsByBrandIdLiveData
     fun getSimilarItemsResponse() = getSimilarItemsLiveData
+    fun getProductsOfSearchingResponse() = getProductsOfSearchingLiveData
+    fun updateQuantityCartResponse() = updateQuantityCartLiveData
 
 
 }

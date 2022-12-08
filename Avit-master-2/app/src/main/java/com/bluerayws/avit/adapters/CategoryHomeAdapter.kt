@@ -11,7 +11,6 @@ import com.bluerayws.avit.R
 import com.bluerayws.avit.databinding.ItemCategoryBinding
 import com.bluerayws.avit.databinding.ItemHomeCategoryBinding
 import com.bluerayws.avit.dataclass.Categories
-import com.bluerayws.avit.dataclass.Category_Array
 
 class CategoryHomeAdapter(
     val list: List<Categories>, val context: Context, val flag: Int,

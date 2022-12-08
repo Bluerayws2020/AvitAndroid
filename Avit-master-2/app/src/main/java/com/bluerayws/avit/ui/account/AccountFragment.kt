@@ -20,7 +20,6 @@ import com.bluerayws.avit.Repo.NetworkResults
 import com.bluerayws.avit.SplashActivity
 import com.bluerayws.avit.ViewModel.CustomerViewModel
 import com.bluerayws.avit.databinding.FragmentAccountBinding
-import com.bluerayws.avit.dataclass.Customer_Profile
 import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody

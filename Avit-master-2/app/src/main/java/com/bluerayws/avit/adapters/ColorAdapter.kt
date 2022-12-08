@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bluerayws.avit.Helper.HelperUtils
 import com.bluerayws.avit.databinding.ItemColorBinding
 import com.bluerayws.avit.dataclass.Colors
-import com.bluerayws.avit.dataclass.colors_main
 
 
 class ColorAdapter(private val list: List<Colors>, private val context: Context, private val clickListener: AddressClicked) : RecyclerView.Adapter<ColorAdapter.Holder>() {

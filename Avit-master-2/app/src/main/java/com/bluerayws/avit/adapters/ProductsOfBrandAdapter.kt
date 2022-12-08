@@ -34,7 +34,7 @@ class ProductsOfBrandAdapter(private val list: List<BrandItemsMain>, private val
 
 
             holder.binding.favouriteClick.setOnClickListener{
-                favClick.onItemClicked("ar", data.id)
+                favClick.onItemClicked(position)
 //            data.wishlist = 1
             }
             Log.d("WIsh List: ", "onBindViewHolder: " + data.wishlist)

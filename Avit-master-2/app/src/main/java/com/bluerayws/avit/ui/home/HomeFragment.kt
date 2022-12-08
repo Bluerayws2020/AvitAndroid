@@ -32,6 +32,7 @@ import com.bluerayws.avit.ui.activities.ProductActivity
 import com.bluerayws.avit.ui.activities.SearchActivity
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import java.text.FieldPosition
 
 class HomeFragment : Fragment(), ItemClicked {
 
@@ -57,6 +58,7 @@ class HomeFragment : Fragment(), ItemClicked {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
+
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -163,13 +165,14 @@ class HomeFragment : Fragment(), ItemClicked {
                     homeList = result.data.products_data
                     binding?.rvHome?.layoutManager = lm
                     val productHomeAdapter = ProductHomeAdapter(homeList!!, requireContext(), object : FavoriteClick{
-                        override fun onItemClicked(lang: String, productId: String){
-                            categoryVM.getRequestProduct(lang, productId, "Bearer $token")
+                        override fun onItemClicked(position: Int){
+                            categoryVM.getRequestProduct(language, result.data.products_data[position].id, "Bearer $token")
                         }
 
                     })
                     binding?.rvHome?.adapter = productHomeAdapter
 
+                    binding?.textView18?.text = homeList!!.size.toString() + " " + "Items"
 
 
 
@@ -203,6 +206,7 @@ class HomeFragment : Fragment(), ItemClicked {
 
 
                     binding?.rvBrand?.adapter = brandAdapter
+                    binding?.textView18?.text = brandList!!.size.toString() + " " + "Items"
 
                 }
 
@@ -233,8 +237,8 @@ class HomeFragment : Fragment(), ItemClicked {
 
 
                     val productsOfBrandAdapter = ProductsOfBrandAdapter(prodBrandList!!, requireActivity(), object : FavoriteClick{
-                        override fun onItemClicked(lang: String, productId: String){
-                            categoryVM.getRequestProduct(lang, productId, "Bearer $token")
+                        override fun onItemClicked(position: Int){
+                            categoryVM.getRequestProduct(language, result.data.products_data[position].id, "Bearer $token")
                         }
 
                     })

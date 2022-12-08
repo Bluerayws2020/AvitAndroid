@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bluerayws.avit.Helper.HelperUtils
 import com.bluerayws.avit.databinding.ItemSizeBinding
 import com.bluerayws.avit.dataclass.Sizes
-import com.bluerayws.avit.dataclass.sizes_main
+
 
 class SizeAdapter(private val list: List<Sizes>, private val context: Context, private val clickListener:AddressClicked) : RecyclerView.Adapter<SizeAdapter.Holder>() {
 

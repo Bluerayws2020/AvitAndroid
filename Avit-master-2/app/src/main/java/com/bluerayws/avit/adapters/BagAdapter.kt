@@ -15,7 +15,8 @@ import com.bumptech.glide.Glide
 class BagAdapter(
     private val list: List<CustomerCartData>,
     private val context: Context,
-    private val itemClicked: DeleteItemClicked
+    private val itemClicked: DeleteItemClicked,
+    private val updateQuantity: UpdateQuantity
 ) : RecyclerView.Adapter<BagAdapter.Holder>() {
 
     private val language = "ar"
@@ -47,6 +48,29 @@ class BagAdapter(
         holder.binding.deleteBtn.setOnClickListener {
             itemClicked.removeItem(position)
             notifyDataSetChanged()
+        }
+
+        // decrease the quantity
+
+        var quantity = holder.binding.textView13.text.toString().toInt()
+
+
+        holder.binding.imageView3.setOnClickListener {
+            quantity -= 1
+            holder.binding.textView13.text = quantity.toString()
+
+            updateQuantity.updateQuantity(quantity, position)
+
+        }
+
+
+        // increase the quantity
+        holder.binding.imageView5.setOnClickListener {
+            quantity += 1
+            holder.binding.textView13.text = quantity.toString()
+
+            updateQuantity.updateQuantity(quantity, position)
+
         }
 
 

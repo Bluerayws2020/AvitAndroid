@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bluerayws.avit.Api.ApiClient
 import com.bluerayws.avit.Helper.HelperUtils
-import com.bluerayws.avit.R
 import com.bluerayws.avit.Repo.CMainRepo
 import com.bluerayws.avit.Repo.NetworkResults
 import com.bluerayws.avit.ViewModel.CategoryViewModel
@@ -19,9 +19,10 @@ import com.bluerayws.avit.ViewModel.CategroyViewModelFactory
 import com.bluerayws.avit.adapters.*
 import com.bluerayws.avit.databinding.ActivityProductBinding
 import com.bluerayws.avit.dataclass.*
-import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.models.SlideModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ProductActivity : AppCompatActivity() {
@@ -32,11 +33,11 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var rvSize: RecyclerView
     private lateinit var rvSimilar: RecyclerView
     private lateinit var colorAdapter: ColorAdapter
-    private lateinit var similarAdapter: SimilarItemAdapter
+    private lateinit var similarAdapter: RelatedListAdapter
     private lateinit var sizeAdapter: SizeAdapter
     private var sizeList: List<Sizes>? = null
     private var colorList: List<Colors>? = null
-
+    var relatedProductList : List<RelatedProductsItems>? = null
 
 
     private var adapter: ProductAdapter? = null
@@ -69,19 +70,22 @@ class ProductActivity : AppCompatActivity() {
 
 
 
-
-
         addToBag()
 
         let {
 
+            val sharedPreferences =
+                applicationContext?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
+
+            val token = sharedPreferences?.getString("access_token", "")
             val productId = intent.getStringExtra("product_id")
 
             getProductsDetailsById()
             categoryVM.getProductsDetails(language, productId.toString())
 
-
-
+            binding.favouriteClick.setOnClickListener {
+                categoryVM.getRequestProduct(language, productId.toString(), "Bearer $token")
+            }
         }
 
         //Size RadioButton
@@ -108,14 +112,24 @@ class ProductActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+
         //similar Adapter
         let {
             val productId = intent.getStringExtra("product_id")
 
-            getRelatedProductsApi()
-            categoryVM.getRelatedProduct(Product(language, listOf(productId!!)))
+            // way 1
+//            getRelatedProductsApi()
+//            categoryVM.getRelatedProduct(Product(language, listOf(productId!!)))
+
+            // way 2
+            similarListApi()
+
 
         }
+
+
         val sharedPreferences =
             applicationContext?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
 
@@ -170,7 +184,7 @@ class ProductActivity : AppCompatActivity() {
                     Log.d("Related List:  ", "getRelatedProductsApi: " + relatedList.toString())
 
                     binding.rvSimilar.layoutManager = relatedLM
-                    val similarAdapter = SimilarItemAdapter(relatedList!!, applicationContext)
+//                    val similarAdapter = SimilarItemAdapter(relatedList!!, applicationContext)
                     binding.rvSimilar.adapter = similarAdapter
 
 
@@ -200,7 +214,7 @@ class ProductActivity : AppCompatActivity() {
                     colorList = result.data.product_details.colors
 
                     binding.rvSize.layoutManager = sizeLM
-                    val sizeAdapter = SizeAdapter(sizeList!!, applicationContext, object : AddressClicked{
+                    sizeAdapter = SizeAdapter(sizeList!!, applicationContext, object : AddressClicked{
                         override fun onClick(position: Int) {
                             sizeId = sizeList!![position].id.toString()
                         }
@@ -214,7 +228,7 @@ class ProductActivity : AppCompatActivity() {
 
                     colorList = result.data.product_details.colors
                     binding.rvColor.layoutManager = colorLM
-                    val colorAdapter = ColorAdapter(colorList!!, applicationContext, object : AddressClicked{
+                    colorAdapter = ColorAdapter(colorList!!, applicationContext, object : AddressClicked{
                         override fun onClick(position: Int) {
                             colorId = colorList!![position].id.toString()
                         }
@@ -287,6 +301,64 @@ class ProductActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+    private fun similarListApi(){
+
+        val productId = intent.getStringExtra("product_id")
+
+        val relatedProducts =
+            ApiClient.retrofitService
+                .getRelatedProducts((Product(language, listOf(productId!!))))
+
+        val token = HomeActivity.tokenObj
+
+        relatedProducts.enqueue(
+
+            object : Callback<RelatedProducts> {
+                override fun onResponse(
+                    call: Call<RelatedProducts>,
+                    response: Response<RelatedProducts>
+                ) {
+
+
+                    if (response.body()?.status == true) {
+
+                        Log.d("List: ", "onResponse: " + response.body()!!.related_products)
+
+                        relatedProductList = response.body()!!.related_products
+
+                        Log.d("List: ", "onResponse: " + (relatedProductList?.size))
+
+
+                        val lm = LinearLayoutManager(this@ProductActivity, LinearLayoutManager.HORIZONTAL, false)
+                        rvSimilar.layoutManager = lm
+                        similarAdapter = RelatedListAdapter(relatedProductList!!, applicationContext, object : FavoriteClick{
+                            override fun onItemClicked(position: Int) {
+                                categoryVM.getRequestProduct(language, response.body()!!.related_products[position].id, "Bearer $token")
+                            }
+
+                        })
+                        rvSimilar.adapter = similarAdapter
+
+                        Log.i("TAG", "related length: " + relatedProductList!!.size)
+
+                    }
+                    else
+                    {
+                        Log.e(this.toString(), "onResponse:")
+                    }
+                }
+
+                override fun onFailure(call: Call<RelatedProducts>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.message.toString(), Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+
+        )
     }
 
 

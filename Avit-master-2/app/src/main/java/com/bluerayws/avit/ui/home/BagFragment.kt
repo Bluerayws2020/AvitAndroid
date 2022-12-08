@@ -19,6 +19,7 @@ import com.bluerayws.avit.ViewModel.CategroyViewModelFactory
 import com.bluerayws.avit.adapters.BagAdapter
 import com.bluerayws.avit.adapters.DeleteItemClicked
 import com.bluerayws.avit.adapters.ProductAdapter
+import com.bluerayws.avit.adapters.UpdateQuantity
 import com.bluerayws.avit.databinding.FragmentBagBinding
 import com.bluerayws.avit.dataclass.CustomerCartData
 import com.bluerayws.avit.dataclass.ProductsDataMain
@@ -41,7 +42,7 @@ class BagFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        categoryVM = ViewModelProvider(this, CategroyViewModelFactory(categoryRepo))[CategoryViewModel::class.java]
+        categoryVM = ViewModelProvider(this@BagFragment, CategroyViewModelFactory(categoryRepo))[CategoryViewModel::class.java]
 
         binding = FragmentBagBinding.inflate(inflater, container, false)
         return binding?.root
@@ -59,6 +60,7 @@ class BagFragment : Fragment() {
         categoryVM.getCustomerCart(language, "Bearer $token")
 
         removeBagItemsApi()
+        updateCartQuantity()
 
     }
 
@@ -85,6 +87,16 @@ class BagFragment : Fragment() {
                             categoryVM.removeFromCart(language, bagList!![itemId].id.toString(), "Bearer $token")
                         }
 
+                    }, object : UpdateQuantity{
+                        override fun updateQuantity(position:Int, quantity: Int) {
+                            categoryVM.updateQuantityCart(language, result.data.customer_cart_data[position].product_id,
+                                quantity,
+                                result.data.customer_cart_data[position].color_id,
+                                result.data.customer_cart_data[position].size_id,
+                                "Bearer $token")
+
+                        }
+
                     })
                     binding?.rvBag?.addItemDecoration(
                         DividerItemDecoration(
@@ -96,7 +108,7 @@ class BagFragment : Fragment() {
 
                     binding?.textView1645?.text  = result.data.customer_cart_header.promoCode
 
-                    binding?.textView16?.text = result.data.customer_cart_header.endTotal
+                    binding?.textView16?.text = result.data.customer_cart_header.subTotal
 
                 }
 
@@ -116,7 +128,6 @@ class BagFragment : Fragment() {
         categoryVM.deleteFromCartResponse().observe(viewLifecycleOwner){ result ->
             when(result){
                 is NetworkResults.Success -> {
-
                     Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
                 }
 
@@ -128,6 +139,23 @@ class BagFragment : Fragment() {
         }
 
 
+    }
+
+
+    private fun updateCartQuantity(){
+
+        categoryVM.updateQuantityCartResponse().observe(viewLifecycleOwner){ result ->
+            when(result){
+                is NetworkResults.Success -> {
+                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(context, result.exception.toString(), Toast.LENGTH_LONG).show()
+                    result.exception.printStackTrace()
+                }
+            }
+        }
     }
 
 

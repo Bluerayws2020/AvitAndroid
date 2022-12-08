@@ -31,6 +31,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.FieldPosition
 import java.util.*
 
 class FavoriteFragment : Fragment(), ItemClicked {
@@ -58,9 +59,9 @@ class FavoriteFragment : Fragment(), ItemClicked {
 
         categoryVM = ViewModelProvider(this, CategroyViewModelFactory(categoryRepo))[CategoryViewModel::class.java]
 
-        binding?.search?.setOnClickListener {
-            startActivity(Intent(requireActivity(), SearchActivity::class.java))
-        }
+//        binding?.search?.setOnClickListener {
+//            startActivity(Intent(requireActivity(), SearchActivity::class.java))
+//        }
 
 
         val token = HomeActivity.tokenObj
@@ -105,8 +106,8 @@ class FavoriteFragment : Fragment(), ItemClicked {
                     wishList = result.data.Product_Wishlist
                     binding?.rvFavorite?.layoutManager = lm
                     val productAdapter = ProductAdapter(wishList!!, requireContext(), 1, object : FavoriteClick{
-                        override fun onItemClicked(lang: String, productId: String) {
-                            categoryVM.getRequestProduct(language, productId, "Bearer $token")
+                        override fun onItemClicked(position: Int) {
+                            categoryVM.getRequestProduct(language, result.data.Product_Wishlist[position].product_id, "Bearer $token")
 
                         }
 
@@ -154,9 +155,9 @@ class FavoriteFragment : Fragment(), ItemClicked {
 
                     similarList = result.data.products_data
                     binding?.rvSimilarProducts?.layoutManager = lm
-                    val similarItemsAdapter = SimilarItemsAdapter(similarList!!, requireContext(), 1, object : FavoriteClick{
-                        override fun onItemClicked(lang: String, productId: String) {
-                            categoryVM.getRequestProduct(language, productId, "Bearer $token")
+                    val similarItemsAdapter = SimilarItemsAdapter(similarList!!, requireContext(), object : FavoriteClick{
+                        override fun onItemClicked(position: Int) {
+                            categoryVM.getRequestProduct(language, result.data.products_data[position].product_id, "Bearer $token")
 
                         }
 

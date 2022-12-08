@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
         lateinit var tokenObj: String
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
             tokenObj = token
         }
         Toast.makeText(applicationContext, token.toString(), Toast.LENGTH_SHORT).show()
-        Log.i("TAG", "token: " + token)
+        Log.i("TAG", "token: $token")
         Log.d("tokken", "onCreate: $tokenObj")
 
     }

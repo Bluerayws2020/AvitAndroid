@@ -571,189 +571,44 @@ data class SimilarItems(
 
 
 
+data class SearchOfProducts(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("products") val products: List<ProductsOfSearching>
+
+    )
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// old Api
-data class Category(
-    val status: String,
-    val msg: String,
-    val categories :List<Category_Array>
-
-)
-data class Category_Array(
-    @SerializedName ("id")val  cid: String,
-    @SerializedName ("name_ar") val name_ar: String
+data class ProductsOfSearching(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") val name_en: String,
+    @SerializedName ("description_ar") val description_ar: String,
+    @SerializedName ("description_en") val description_en: String,
+    @SerializedName ("image") val image: String
 
     )
 
 
 
-
-data class Register(
-    @SerializedName ("id")val  cid: Int,
-    @SerializedName ("name_ar")val  name_ar: String,
-    @SerializedName ("name_en")val  name_en: String,
-    @SerializedName ("username")val  username: String,
-    @SerializedName ("email")val  email: String,
-    @SerializedName ("phone")val  phone: String,
-    @SerializedName ("access_token") val access_token: String
-
-
-)
-
-
-data class Countries_main(
-    @SerializedName ("status") val status: Boolean,
-    @SerializedName ("errNum") val errNum: String,
-    @SerializedName ("msg") val msg: String,
-    @SerializedName ("Countries") val country: Countries
-
-
-)
-
-
-data class Countries(
-    @SerializedName ("id") val couId: String,
-    @SerializedName ("name_ar") val name_ar: String,
-    @SerializedName ("name_en") val name_en: String,
-    @SerializedName ("shipping_cost") val shipping_cost: String
-
-
-)
-
-
-
-data class Regions_main(
-    @SerializedName ("status") val status: Boolean,
-    @SerializedName ("errNum") val errNum: String,
-    @SerializedName ("msg") val msg: String,
-    @SerializedName ("Regions") val Region: Regions
-
-
-)
-
-
-data class Regions(
-    @SerializedName ("country_id") val couId: String,
-    @SerializedName ("name_ar") val name_ar: String,
-    @SerializedName ("name_en") val name_en: String,
-    @SerializedName ("shipping_cost") val shipping_cost: String
-
-
-)
-
-
-
-data class ProductDetails_main(
-    @SerializedName ("status") val status: Boolean,
-    @SerializedName ("errNum") val errNum: String,
-    @SerializedName ("msg") val msg: String,
-    @SerializedName ("product_details") val product_detail: Product_Main
-
-
-)
-
-data class Product_Main(
-
-    @SerializedName ("id") val pd_id: String,
-        //sale_price
-    @SerializedName ("sale_price") val sale_price: String,
-    @SerializedName ("name_en") val pname: String,
-    @SerializedName ("description_en") val description_en: String,
-    @SerializedName ("category_id") val category_id: String,
-    @SerializedName ("design_id") val design_id: String,
-
-
-    @SerializedName ("colors") val Colors: List<colors_main>,
-    @SerializedName("sizes") val  Sizes: List<sizes_main>
-
-        //@SerializedName ("product_images") val product_images: product_images,
-        //@SerializedName ("product_small_images") val product_small_image: product_small_images
-)
-
-data class colors_main(
-
-    @SerializedName ("id") val col_id: String,
-    @SerializedName ("color_name_ar") val color_name_ar: String,
-    @SerializedName ("color_name_en") val color_name_en: String
-
-
-)
-
-
-data class sizes_main(
-    @SerializedName ("id") val sz_id: String,
-    @SerializedName ("size_name_ar") val size_name_ar: String,
-    @SerializedName ("size_name_en") val size_name_en: String
-
-
-)
-
-
-data class customer_wishlist(
-    @SerializedName ("status") val status: Boolean,
-    @SerializedName ("errNum") val errNum: String,
-    @SerializedName ("msg") val msg: String,
-    @SerializedName ("Product_Wishlist") val Product_Wishlist: List<Product_Main>
-
-)
-
-
-
-data class customer_wishlist_request(
-    @SerializedName ("status") val status: Boolean,
-    @SerializedName ("errNum") val errNum: String,
-    @SerializedName ("msg") val msg: String
-
-)
-
-
-
-
-data class Customer_Profile(
+data class UpdateCartQuantity(
     @SerializedName ("status") val status: Int,
-    @SerializedName ("success") val success: Boolean,
-    @SerializedName ("request_date") val request_date: String,
-    @SerializedName ("data") val data: Customer_Info
-
-
+    @SerializedName ("success") val errNum: Boolean,
+    @SerializedName ("message") val msg: String,
 )
 
 
 
-
-data class Customer_Info(
-    @SerializedName("id") val id: Int,
-    @SerializedName("id_erp") val id_erp: String,
-    @SerializedName("name_ar") val name_ar: String,
-    @SerializedName("name_en") val name_en: String,
-    @SerializedName("username") val username: String,
-    @SerializedName("email") val email: String,
-    @SerializedName("phone") val phone: String,
-    @SerializedName("country_id") val country_id: String,
-    @SerializedName("region_id") val region_id: String,
-    @SerializedName("address") val address: String,
-    @SerializedName("user_status") val user_status: String,
-    @SerializedName("provider") val provider: String,
-    @SerializedName("provider_id") val provider_id: String,
-    @SerializedName("created_by") val created_by: Int,
-    @SerializedName("email_verified_at") val email_verified_at: String,
-    @SerializedName("country_name_en") val country_name_en: String,
-    @SerializedName("country_name_ar") val country_name_ar: String,
-    @SerializedName("city_name_en") val city_name_en: String,
-    @SerializedName("city_name_ar") val city_name_ar: String,
-    @SerializedName("profile_photo") val profile_photo: String,
+data class UpdateQuantity(
+    @SerializedName ("lang") val lang: String,
+    @SerializedName ("data") val data: List<UpdateData>
 )
+
+data class UpdateData(
+    @SerializedName ("product_id") val product_id: String,
+    @SerializedName ("quantity") val quantity: Int,
+    @SerializedName ("color_id") val color_id: String,
+    @SerializedName ("size_id") val size_id: String,
+
+    )

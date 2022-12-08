@@ -12,7 +12,6 @@ import com.bluerayws.avit.Helper.HelperUtils
 import com.bluerayws.avit.databinding.ItemFavoriteBinding
 import com.bluerayws.avit.dataclass.ProductsDataMain
 import com.bluerayws.avit.dataclass.ProductsHomeMain
-import com.bluerayws.avit.dataclass.customer_wishlist_request
 import com.bluerayws.avit.ui.activities.ProductActivity
 import com.bluerayws.avit.ui.login.StartActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -38,7 +37,7 @@ class ProductHomeAdapter(private val list: List<ProductsDataMain>, private val c
 
 
         holder.binding.favouriteClick.setOnClickListener{
-            favClick.onItemClicked("ar", data.id)
+            favClick.onItemClicked(position)
 //            data.wishlist = 1
         }
         Log.d("WIsh List: ", "onBindViewHolder: " + data.wishlist)

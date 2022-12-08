@@ -18,31 +18,6 @@ import java.io.File
 
 object CMainRepo {
 
-    //   gitting live data
-    private val categoryliveData = MutableLiveData<Category>()
-
-    // get arr
-    val categoryArray: LiveData<Category>
-        get() = categoryliveData
-
-
-    suspend fun getCategroyRepo() {
-        val language = "ar"
-        val languages = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-        val result = ApiClient.retrofitService.getCategory(languages)
-
-        if (result.body() != null) {
-            categoryliveData.postValue(result.body())
-            Log.d("done", result.body().toString())
-
-        } else {
-            Log.d("err", result.body().toString())
-//            Toast.makeText(this,"Err",Toast.LENGTH_LONG).show()
-        }
-
-
-    }
 
     suspend fun userSignUp(
         provider_status: String,
@@ -482,30 +457,30 @@ object CMainRepo {
     }
 
 
-    suspend fun getRelatedProduct(
-        product: Product
-
-
-    ): NetworkResults<RelatedProducts> {
-        return withContext(Dispatchers.IO) {
-
-//            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-            try {
-                val results = ApiClient.retrofitService.getRelatedProducts(
-                    product
-                )
-
-
-                NetworkResults.Success(results)
-
-            } catch (e: Exception) {
-                Log.d("Related Products Error Repo : ", e.message.toString())
-                NetworkResults.Error(e)
-
-            }
-        }
-    }
+//    suspend fun getRelatedProduct(
+//        product: Product
+//
+//
+//    ): NetworkResults<RelatedProducts> {
+//        return withContext(Dispatchers.IO) {
+//
+////            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+//
+//            try {
+//                val results = ApiClient.retrofitService.getRelatedProducts(
+//                    product
+//                )
+//
+//
+//                NetworkResults.Success(results)
+//
+//            } catch (e: Exception) {
+//                Log.d("Related Products Error Repo : ", e.message.toString())
+//                NetworkResults.Error(e)
+//
+//            }
+//        }
+//    }
 
 
     suspend fun getRequestProduct(
@@ -750,5 +725,76 @@ object CMainRepo {
             }
         }
     }
+
+
+//    getProductsOfSearching
+
+    suspend fun getProductsOfSearching(
+        language: String,
+        name: String
+
+    ): NetworkResults<SearchOfProducts> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val nameBody = name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getProductsOfSearching(
+                    langBody,
+                    nameBody
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Products Of Searching Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+//    updateCartQuantity
+
+    suspend fun updateCartQuantity(
+        language: String,
+        productId: String,
+        quantity: Int,
+        colorId: String,
+        sizeId: String,
+        token: String
+
+    ): NetworkResults<UpdateCartQuantity> {
+        return withContext(Dispatchers.IO) {
+
+//            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+//            val productIdBody = productId.toRequestBody("application/json".toMediaTypeOrNull())
+//            val quantityBody = quantity.toRequestBody("application/json".toMediaTypeOrNull())
+//            val colorIdBody = colorId.toRequestBody("application/json".toMediaTypeOrNull())
+//            val sizeIdBody = sizeId.toRequestBody("application/json".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.updateCartQuantity(
+                    UpdateQuantity(language,
+                    listOf(
+                        UpdateData(
+                            productId, quantity, colorId, sizeId
+                        )
+                    )
+                    ), token)
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Update Cart Quantity Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
 
 }

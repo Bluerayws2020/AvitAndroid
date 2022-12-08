@@ -189,7 +189,7 @@ interface APIService {
     fun getRelatedProducts(
         @Body product: Product?
 
-    ) : RelatedProducts
+    ) : Call<RelatedProducts>
 
 
 
@@ -287,81 +287,35 @@ interface APIService {
     ): SimilarItemsMain
 
 
+//    SearchOfProducts
 
-
-
-
-
-
-
-
-
-
-
-
-    // old api
-    @Multipart
-    @POST("api/frontend/getCountries")
-    suspend fun getCountries(
-        @Part("lang") lang: RequestBody
-
-    ): Countries_main
 
     @Multipart
-    @POST("api/frontend/getGategories")
-    suspend fun getCategory(@Part("lang") language: RequestBody): Response<Category>
-
-    @Multipart
-    @POST("api/frontend/getRegions")
-    suspend fun getRegions(
+    @POST("frontend/searchOfProducts")
+    suspend fun getProductsOfSearching(
         @Part("lang") lang: RequestBody,
-        @Part("country_id") country_id: RequestBody
+        @Part("name") name: RequestBody
 
-    ): Regions_main
-
-
-//    https://avit2.br-ws.com/api/frontend/getProductDetails
-
-
-    @Multipart
-    @POST("api/frontend/getProductDetails")
-     fun getProductDetails(
-        @Part("lang") lang: RequestBody,
-        @Part("product_number") product_num: RequestBody
-
-
-    ): Call<ProductDetails_main> //model
+    ): SearchOfProducts
 
 
 
-     @Multipart
-     @POST("api/customer/customerWishlist")
-     fun getCustomerWishList(
-         @Part("lang") lang: RequestBody
 
+//    UpdateCartQuantity
 
-     ) : Call<customer_wishlist>
-
-
-     @Multipart
-     @POST("api/customer/customerWishlistRequest")
-     fun customerWishListRequest(
-         @Part("lang") lang: RequestBody,
-         @Part("product_id") prod_id: RequestBody
-
-
-     ) : customer_wishlist_request
+    @Headers("Content-Type: application/json")
+    @POST("customer/updateCartQuantity")
+    suspend fun updateCartQuantity(
+        @Body data: UpdateQuantity?,
+        @Header ("Authorization") auth:String
 
 
 
-    @Multipart
-    @Headers(value = ["Accept: application/json", "Content-type:application/json"])
-    @POST("api/customer/getCustomerProfile")
-    fun getCustomerProfile(
-        @Part("lang") lang: RequestBody,
+    ): UpdateCartQuantity
 
 
 
-    ) : Call<Customer_Profile>
+
+
 
 }

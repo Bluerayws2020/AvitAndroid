@@ -182,34 +182,52 @@
             app:layout_constraintVertical_bias="0.179" />
 
 
-<!--        <com.facebook.login.widget.LoginButton-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/image_facebook"-->
-<!--            android:contentDescription="@string/facebook_logo"-->
-<!--            android:text="@string/fbLogin"-->
-<!--            android:src="@drawable/ic_facebook"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/image_google"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/textView"-->
-<!--            app:layout_constraintHorizontal_bias="0.776"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView"-->
-<!--            app:layout_constraintVertical_bias="1.0"-->
-<!--            />-->
+        <!--        <com.facebook.login.widget.LoginButton-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:id="@+id/image_facebook"-->
+        <!--            android:contentDescription="@string/facebook_logo"-->
+        <!--            android:text="@string/fbLogin"-->
+        <!--            android:src="@drawable/ic_facebook"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/image_google"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/textView"-->
+        <!--            app:layout_constraintHorizontal_bias="0.776"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView"-->
+        <!--            app:layout_constraintVertical_bias="1.0"-->
+        <!--            />-->
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/facebook_sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/fbLogin"
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/facebook_sign_in_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:text="@string/fbLogin"-->
+        <!--            android:src="@drawable/ic_facebook"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:backgroundTint="#314e88"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            app:icon="@drawable/ic_facebook"-->
+        <!--            app:iconTint="@color/white"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/image_google"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/textView"-->
+        <!--            app:layout_constraintHorizontal_bias="0.776"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView"-->
+        <!--            app:layout_constraintVertical_bias="1.0"-->
+        <!--            tools:ignore="SpeakableTextPresentCheck" />-->
+        <!--        />-->
+
+        <ImageView
+            android:id="@+id/image_facebook"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/facebook_logo"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_facebook"
-            android:textColor="@color/white"
-            app:backgroundTint="#314e88"
-            android:textAllCaps="false"
-            app:icon="@drawable/ic_facebook"
-            app:iconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/image_google"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.776"
@@ -217,29 +235,11 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="1.0"
             tools:ignore="SpeakableTextPresentCheck" />
-        />
-
-<!--        <ImageView-->
-<!--            android:id="@+id/image_facebook"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:clickable="true"-->
-<!--            android:contentDescription="@string/facebook_logo"-->
-<!--            android:focusable="true"-->
-<!--            android:foreground="?android:attr/selectableItemBackground"-->
-<!--            android:src="@drawable/ic_facebook"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/image_google"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/textView"-->
-<!--            app:layout_constraintHorizontal_bias="0.776"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/textView"-->
-<!--            app:layout_constraintVertical_bias="1.0"-->
-<!--            tools:ignore="SpeakableTextPresentCheck" />-->
 
         <ImageView
             android:id="@+id/image_google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:clickable="true"
             android:contentDescription="@string/google_logo"
             android:focusable="true"

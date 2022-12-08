@@ -11,7 +11,6 @@ import com.bluerayws.avit.Helper.HelperUtils
 import com.bluerayws.avit.Repo.NetworkResults
 import com.bluerayws.avit.ViewModel.CustomerViewModel
 import com.bluerayws.avit.databinding.ActivitySignInBinding
-import com.bluerayws.avit.dataclass.Register
 import com.bluerayws.avit.dataclass.UserData
 import com.bluerayws.avit.ui.activities.HomeActivity
 
