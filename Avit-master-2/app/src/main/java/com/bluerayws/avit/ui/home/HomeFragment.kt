@@ -79,8 +79,11 @@ class HomeFragment : Fragment(), ItemClicked {
 
         val preferences =
             context?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
-        val catId = preferences?.getString("cate_id", "cate_id")
+//        val catId = preferences?.getString("cate_id", "cate_id")
         val categoryId = preferences?.getString("category_id", "category_id")
+//        val cateId = preferences?.getString("categoryId", "categoryId")
+
+//        Log.d("Cate0", "onViewCreated:  Categ Id$cateId")
 
         sliderImage()
 //        radioButton()
@@ -89,6 +92,7 @@ class HomeFragment : Fragment(), ItemClicked {
 
         binding?.search?.setOnClickListener {
             startActivity(Intent(requireActivity(), SearchActivity::class.java))
+            SearchActivity.ComeFromCategory = false
         }
 
         getProductsByCateIdApi()
@@ -96,11 +100,15 @@ class HomeFragment : Fragment(), ItemClicked {
 
         addProductToWishList()
         Log.d("catId1", "onViewCreated: $categoryId")
-        Log.d("catId2", "onViewCreated: $catId")
+//        Log.d("catId2", "onViewCreated: $catId")
 
 
-        categoryVM.getProductsByCateId(language, catId.toString())
-
+//        if(cateId != "0") {
+            categoryVM.getProductsByCateId(language, categoryId.toString())
+//        }
+//        else{
+//            categoryVM.getProductsByCateId(language, cateId.toString())
+//        }
 
 
         categoryApi()

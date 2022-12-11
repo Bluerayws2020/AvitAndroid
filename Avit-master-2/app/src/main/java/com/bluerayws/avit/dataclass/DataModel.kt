@@ -612,3 +612,49 @@ data class UpdateData(
     @SerializedName ("size_id") val size_id: String,
 
     )
+
+
+
+
+data class Stores(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("stores") val stores: List<StoreDetails>
+
+    )
+
+data class StoreDetails(
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") val name_en: String,
+    @SerializedName ("address_ar") val address_ar: String,
+    @SerializedName ("address_en") val address_en: String,
+    @SerializedName ("url") val url: String,
+    @SerializedName ("phone") val phone: String
+
+    )
+
+
+
+
+
+data class SearchOfCategories(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("categories") val CategoriesList: List<CategoriesList>
+
+    )
+
+
+data class CategoriesList(
+    @SerializedName ("id") val id: String,
+    @SerializedName ("name_ar") val name_ar: String,
+    @SerializedName ("name_en") val name_en: String,
+    @SerializedName ("description_ar") val description_ar: String,
+    @SerializedName ("description_en") val description_en: String,
+    @SerializedName ("show_in_menu_status") val show_in_menu_status: String,
+    @SerializedName ("order_in_menu") val order_in_menu: String,
+    @SerializedName ("image") val image: String
+
+    )

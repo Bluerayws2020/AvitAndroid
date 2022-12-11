@@ -6,6 +6,7 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +14,19 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bluerayws.avit.R
+import com.bluerayws.avit.Repo.CMainRepo
+import com.bluerayws.avit.Repo.NetworkResults
+import com.bluerayws.avit.ViewModel.CategoryViewModel
+import com.bluerayws.avit.ViewModel.CategroyViewModelFactory
 import com.bluerayws.avit.adapters.LocationAdapter
 import com.bluerayws.avit.databinding.FragmentLocationBinding
+import com.bluerayws.avit.dataclass.StoreDetails
 import com.bluerayws.avit.dataclass.TestClass2
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -43,6 +50,12 @@ class LocationFragment : Fragment(), OnMapReadyCallback, LocationAdapter.Locatio
     private lateinit var locationRequest: LocationRequest
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var adpter: LocationAdapter
+
+    private lateinit var categoryVM : CategoryViewModel
+    private val categoryRepo = CMainRepo
+    private val language: String = "ar"
+    private var list: List<StoreDetails> ? = null
+
     private val requestPermissionLocation =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -64,6 +77,9 @@ class LocationFragment : Fragment(), OnMapReadyCallback, LocationAdapter.Locatio
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        categoryVM = ViewModelProvider(this@LocationFragment, CategroyViewModelFactory(categoryRepo))[CategoryViewModel::class.java]
+
+
         binding = FragmentLocationBinding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -73,23 +89,32 @@ class LocationFragment : Fragment(), OnMapReadyCallback, LocationAdapter.Locatio
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
-        val lm = GridLayoutManager(requireActivity(), 1)
-        binding?.rvLocation?.layoutManager = lm
-        val list = ArrayList<TestClass2>()
-        list.add(TestClass2("AVIT Fashoin Store - Marka", "0787663762"))
-        list.add(TestClass2("AVIT Fashoin Store - Marka", "0787663762"))
-        list.add(TestClass2("AVIT Fashoin Store - Marka", "0787663762"))
-        list.add(TestClass2("AVIT Fashoin Store - Marka", "ssss"))
+//        val lm = GridLayoutManager(requireActivity(), 1)
+//        binding?.rvLocation?.layoutManager = lm
+//        val list = ArrayList<TestClass2>()
+//        list.add(TestClass2("AVIT Fashoin Store - Marka", "0787663762"))
+//        list.add(TestClass2("AVIT Fashoin Store - Marka", "0787663762"))
+//        list.add(TestClass2("AVIT Fashoin Store - Marka", "0787663762"))
+//        list.add(TestClass2("AVIT Fashoin Store - Marka", "ssss"))
+//
+//        adpter = LocationAdapter(list, requireActivity(), this)
+//
+//        binding?.rvLocation?.addItemDecoration(
+//            DividerItemDecoration(
+//                requireContext(),
+//                RecyclerView.VERTICAL
+//            )
+//        )
+//        binding?.rvLocation?.adapter = adpter
 
-        adpter = LocationAdapter(list, requireActivity(), this)
 
-        binding?.rvLocation?.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                RecyclerView.VERTICAL
-            )
-        )
-        binding?.rvLocation?.adapter = adpter
+
+    // get Stores
+
+        getStoresLocation()
+        categoryVM.getStores(language)
+
+
     }
 
 
@@ -151,7 +176,7 @@ class LocationFragment : Fragment(), OnMapReadyCallback, LocationAdapter.Locatio
         }
     }
 
-    override fun onCallClicked(data: TestClass2) {
+    override fun onCallClicked(data: String) {
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 Manifest.permission.CALL_PHONE
@@ -161,14 +186,14 @@ class LocationFragment : Fragment(), OnMapReadyCallback, LocationAdapter.Locatio
         } else {
             val intent = Intent()
             intent.action = Intent.ACTION_DIAL
-            val uri = Uri.parse("tel:" + data.lon)
+            val uri = Uri.parse("tel:" + data.toString())
             intent.data = uri
             startActivity(intent)
         }
 
     }
 
-    override fun onDirectionClicked(data: TestClass2) {
+    override fun onDirectionClicked(data: String) {
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         val uri = Uri.parse("google.navigation:q=31.94466,35.853656&mode=d")
@@ -185,4 +210,37 @@ class LocationFragment : Fragment(), OnMapReadyCallback, LocationAdapter.Locatio
         super.onDestroyView()
     }
 
+
+    private fun getStoresLocation(){
+
+        val lm = GridLayoutManager(requireActivity(), 1)
+
+        categoryVM.getStoresResponse().observe(viewLifecycleOwner){ result ->
+            when(result){
+                is NetworkResults.Success -> {
+
+                    binding?.rvLocation?.layoutManager = lm
+
+                    list = result.data.stores
+
+                    adpter = LocationAdapter(list!!, requireActivity(), this)
+
+                    binding?.rvLocation?.addItemDecoration(
+                        DividerItemDecoration(
+                            requireContext(),
+                            RecyclerView.VERTICAL
+                        )
+                    )
+                    binding?.rvLocation?.adapter = adpter
+
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(context, result.exception.toString(), Toast.LENGTH_LONG).show()
+                    result.exception.printStackTrace()
+                }
+            }
+        }
+
+    }
 }

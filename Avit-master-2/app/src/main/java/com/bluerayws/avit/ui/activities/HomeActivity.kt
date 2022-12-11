@@ -55,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences(HelperUtils.SHARED_PREF, MODE_PRIVATE)
 
+
         binding.toolbar.setOnClickListener {
             binding.bottomNavView.selectedItemId = R.id.homeFragment
 
@@ -62,6 +63,8 @@ class HomeActivity : AppCompatActivity() {
                 putString("category_id", "0")
             }.apply()
         }
+
+
 
         // get category id from CategoryAdapter0.kt using putExtra
 //        val cat_id = intent.getStringExtra("cat_id")

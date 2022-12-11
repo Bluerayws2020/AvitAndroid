@@ -51,7 +51,6 @@ class BagAdapter(
         }
 
         // decrease the quantity
-
         var quantity = holder.binding.textView13.text.toString().toInt()
 
 
@@ -59,17 +58,19 @@ class BagAdapter(
             quantity -= 1
             holder.binding.textView13.text = quantity.toString()
 
-            updateQuantity.updateQuantity(quantity, position)
+            updateQuantity.updateQuantity(position, quantity)
 
         }
 
 
         // increase the quantity
-        holder.binding.imageView5.setOnClickListener {
-            quantity += 1
-            holder.binding.textView13.text = quantity.toString()
+        var quantity2 = holder.binding.textView13.text.toString().toInt()
 
-            updateQuantity.updateQuantity(quantity, position)
+        holder.binding.imageView5.setOnClickListener {
+            quantity2 += 1
+            holder.binding.textView13.text = quantity2.toString()
+
+            updateQuantity.updateQuantity(position, quantity2)
 
         }
 

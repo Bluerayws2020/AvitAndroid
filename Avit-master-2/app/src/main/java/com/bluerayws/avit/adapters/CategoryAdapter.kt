@@ -32,6 +32,7 @@ class CategoryAdapter(
 
 
 
+
         if(HelperUtils.getLang(context) == "ar") {
             holder.binding.radioCategory.text = list[position].name_ar
         }
@@ -49,6 +50,13 @@ class CategoryAdapter(
 //            holder.binding.radioCategory.setTextColor(context.getColor(R.color.black))
 
 //        }
+
+
+//        if(position == 0) {
+//            holder.binding.radioCategory.text = "all"
+//        }
+
+
         holder.binding.radioCategory.setOnClickListener {
             onclickListener(list[position])
 
@@ -57,7 +65,7 @@ class CategoryAdapter(
                 context.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
             preferences.edit().apply {
 
-                putString("cate_id", list[position].id)
+                putString("category_id", list[position].id)
 
             }.apply()
             notifyDataSetChanged()
@@ -66,7 +74,7 @@ class CategoryAdapter(
 
 
     override fun getItemCount(): Int {
-        return list.size
+        return list.size  // +1
     }
 
     class Holder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root)

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.CategoryFragment">
 
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/search"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -25,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/black" />
+
 
     <TextView
         android:id="@+id/tv_all"
@@ -64,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_all" />
+        app:layout_constraintTop_toBottomOf="@+id/line" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

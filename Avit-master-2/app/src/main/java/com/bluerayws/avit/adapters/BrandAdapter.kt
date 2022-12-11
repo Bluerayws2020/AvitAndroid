@@ -32,7 +32,9 @@ class BrandAdapter(private val list: List<Brands>, private val context: Context,
             holder.binding.radioCategory.text = list[position].name_ar
 
             if (list[position].isSelected){
-                holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
+                holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context,
+                    R.color.gray1
+                ))
                 holder.binding.radioCategory.setTextColor(context.getColor(R.color.white))
                 Log.d("Color Category Adapter", "onBindViewHolder: Color is black" + list[position].isSelected)
                 list[position].isSelected = false

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bluerayws.avit.Api.ApiClient
 import com.bluerayws.avit.dataclass.*
+import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -457,21 +458,19 @@ object CMainRepo {
     }
 
 
+
 //    suspend fun getRelatedProduct(
-//        product: Product
-//
+//        language: String,
+//        product_id: String
 //
 //    ): NetworkResults<RelatedProducts> {
 //        return withContext(Dispatchers.IO) {
 //
-////            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-//
 //            try {
+//
 //                val results = ApiClient.retrofitService.getRelatedProducts(
-//                    product
+//                    Product(language, listOf(product_id))
 //                )
-//
-//
 //                NetworkResults.Success(results)
 //
 //            } catch (e: Exception) {
@@ -481,6 +480,7 @@ object CMainRepo {
 //            }
 //        }
 //    }
+
 
 
     suspend fun getRequestProduct(
@@ -769,12 +769,6 @@ object CMainRepo {
     ): NetworkResults<UpdateCartQuantity> {
         return withContext(Dispatchers.IO) {
 
-//            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-//            val productIdBody = productId.toRequestBody("application/json".toMediaTypeOrNull())
-//            val quantityBody = quantity.toRequestBody("application/json".toMediaTypeOrNull())
-//            val colorIdBody = colorId.toRequestBody("application/json".toMediaTypeOrNull())
-//            val sizeIdBody = sizeId.toRequestBody("application/json".toMediaTypeOrNull())
-
             try {
                 val results = ApiClient.retrofitService.updateCartQuantity(
                     UpdateQuantity(language,
@@ -795,6 +789,63 @@ object CMainRepo {
             }
         }
     }
+
+
+
+//    getStores
+
+    suspend fun getStores(
+        language: String
+
+    ): NetworkResults<Stores> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getStores(
+                    langBody
+                )
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Get Stores Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+    suspend fun searchOfCategories(
+        language: String,
+        name: String
+
+    ): NetworkResults<SearchOfCategories> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val nameBody = name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.searchOfCategories(
+                    langBody,
+                    nameBody
+                )
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Search Of Categories Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
 
 
 }

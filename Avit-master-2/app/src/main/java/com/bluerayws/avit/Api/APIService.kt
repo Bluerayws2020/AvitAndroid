@@ -27,9 +27,7 @@ interface APIService {
         @Part("region_id") region_id: RequestBody,
 
 
-    ): CustomerRegister
-
-
+        ): CustomerRegister
 
 
     @Multipart
@@ -40,19 +38,17 @@ interface APIService {
         @Part("lang") lang: RequestBody
 
 
-        ): CustomerLogin
-
+    ): CustomerLogin
 
 
     @Multipart
     @POST("customer/getCustomerProfile")
     suspend fun getCustomerInfo(
         @Part("lang") lang: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
 
     ): CustomerInfo
-
 
 
     @Multipart
@@ -67,14 +63,12 @@ interface APIService {
         @Part("country_id") country_id: RequestBody,
         @Part("region_id") region_id: RequestBody,
         @Part("address") address: RequestBody?,
-        @Header ("Authorization") auth:String,
+        @Header("Authorization") auth: String,
         @Part image: MultipartBody.Part?,
         @Part("profile_photo_path") imageName: RequestBody?
 
 
     ): UpdateCustomerInfo
-
-
 
 
     @Multipart
@@ -84,22 +78,19 @@ interface APIService {
         @Part("current_password") current_password: RequestBody,
         @Part("password") password: RequestBody,
         @Part("password_confirmation") password_confirmation: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
 
     ): ResetPassword
-
 
 
     @Multipart
     @POST("customer/getLocationsCustomer")
     suspend fun getLocationsCustomers(
         @Part("lang") lang: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
     ): LocationsCustomers
-
-
 
 
     @Multipart
@@ -110,15 +101,12 @@ interface APIService {
     ): AboutUsMain
 
 
-
     @Multipart
     @POST("frontend/getTermAndCondition")
     suspend fun getTermsConditionsMain(
         @Part("lang") lang: RequestBody
 
     ): TermsConditionsMain
-
-
 
 
     @Multipart
@@ -129,17 +117,12 @@ interface APIService {
     ): PopularQuestionsMain
 
 
-
-
-
     @Multipart
     @POST("frontend/getDelivery")
     suspend fun getDelivery(
         @Part("lang") lang: RequestBody
 
     ): DeliveryMain
-
-
 
 
     @Multipart
@@ -150,16 +133,12 @@ interface APIService {
     ): PaymentMethodsMain
 
 
-
-
     @Multipart
     @POST("frontend/getGategories")
     suspend fun getCategories(
         @Part("lang") lang: RequestBody
 
     ): CategoriesMain
-
-
 
 
     @Multipart
@@ -173,7 +152,6 @@ interface APIService {
     ): ProductsHomeMain
 
 
-
     @Multipart
     @POST("frontend/getProductDetails")
     suspend fun getProductsDetails(
@@ -181,18 +159,15 @@ interface APIService {
         @Part("product_number") product_number: RequestBody,
 
 
-    ): ProductDetailsMain
+        ): ProductDetailsMain
 
 
-
+    @Headers("Content-Type: application/json")
     @POST("customer/relatedProduct")
     fun getRelatedProducts(
         @Body product: Product?
 
-    ) : Call<RelatedProducts>
-
-
-
+    ): Call<RelatedProducts>
 
 
     @Multipart
@@ -200,47 +175,41 @@ interface APIService {
     suspend fun getRequestProduct(
         @Part("lang") lang: RequestBody,
         @Part("product_id") product_id: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
-        ): RequestWishlist
-
-
+    ): RequestWishlist
 
 
     @Multipart
     @POST("customer/customerWishlist")
     suspend fun getProductWishList(
         @Part("lang") lang: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
     ): ProductWishListMain
-
-
 
 
     @Multipart
     @POST("customer/addToCart")
     suspend fun addToBag(
         @Part("lang") lang: RequestBody,
-        @Part ("product_id") product_id:RequestBody,
-        @Part ("quantity") quantity:RequestBody,
-        @Part ("color_id") color_id:RequestBody,
-        @Part ("size_id") size_id:RequestBody,
-        @Header ("Authorization") auth:String
+        @Part("product_id") product_id: RequestBody,
+        @Part("quantity") quantity: RequestBody,
+        @Part("color_id") color_id: RequestBody,
+        @Part("size_id") size_id: RequestBody,
+        @Header("Authorization") auth: String
 
 
     ): AddToBag
 
 
+    @Multipart
+    @POST("customer/getCart")
+    suspend fun getCustomerCart(
+        @Part("lang") lang: RequestBody,
+        @Header("Authorization") auth: String
 
-
-     @Multipart
-     @POST("customer/getCart")
-     suspend fun getCustomerCart(
-         @Part("lang") lang: RequestBody,
-         @Header ("Authorization") auth:String
-
-     ): CustomerCart
+    ): CustomerCart
 
 
 //    DeleteFromCart
@@ -250,11 +219,9 @@ interface APIService {
     suspend fun deleteFromCart(
         @Part("lang") lang: RequestBody,
         @Part("cart_temp_id") cart_temp_id: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
     ): DeleteFromCart
-
-
 
 
     @Multipart
@@ -263,8 +230,6 @@ interface APIService {
         @Part("lang") lang: RequestBody
 
     ): BrandItems
-
-
 
 
     @Multipart
@@ -276,13 +241,11 @@ interface APIService {
     ): BrandsMain
 
 
-
-
     @Multipart
     @POST("customer/similarProductsOfWishlist")
     suspend fun getSimilarItems(
         @Part("lang") lang: RequestBody,
-        @Header ("Authorization") auth:String
+        @Header("Authorization") auth: String
 
     ): SimilarItemsMain
 
@@ -299,23 +262,40 @@ interface APIService {
     ): SearchOfProducts
 
 
-
-
 //    UpdateCartQuantity
 
     @Headers("Content-Type: application/json")
     @POST("customer/updateCartQuantity")
     suspend fun updateCartQuantity(
         @Body data: UpdateQuantity?,
-        @Header ("Authorization") auth:String
-
+        @Header("Authorization") auth: String
 
 
     ): UpdateCartQuantity
 
 
+//    Stores
 
 
+    @Multipart
+    @POST("frontend/getStores")
+    suspend fun getStores(
+        @Part("lang") lang: RequestBody
+
+    ): Stores
+
+//    SearchOfCategories
+
+
+
+
+    @Multipart
+    @POST("frontend/searchOfCategories")
+    suspend fun searchOfCategories(
+        @Part("lang") lang: RequestBody,
+        @Part("name") name: RequestBody
+
+    ): SearchOfCategories
 
 
 }

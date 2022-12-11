@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bluerayws.avit.databinding.ItemLocationBinding
+import com.bluerayws.avit.dataclass.StoreDetails
 import com.bluerayws.avit.dataclass.TestClass2
 
 class LocationAdapter(
-    val list: ArrayList<TestClass2>, val context: Context,
+    val list: List<StoreDetails>, val context: Context,
     private val clicked: LocationClicked
 ) : RecyclerView.Adapter<LocationAdapter.Holder>() {
 
@@ -23,8 +24,8 @@ class LocationAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val data = list[position]
-        holder.binding.locatinTv.text = data.lat
-        holder.binding.roadTv.text = data.lon
+        holder.binding.locatinTv.text = data.name_en
+        holder.binding.roadTv.text = data.address_en
     }
 
     override fun getItemCount(): Int {
@@ -39,17 +40,18 @@ class LocationAdapter(
         init {
             callBtn.setOnClickListener {
                 val data = list[adapterPosition]
-                clicked.onCallClicked(data)
+                clicked.onCallClicked(data.phone)
             }
             navigateBtn.setOnClickListener {
                 val data = list[adapterPosition]
-                clicked.onDirectionClicked(data)
+                clicked.onDirectionClicked(data.url)
             }
         }
     }
 
+
     interface LocationClicked {
-        fun onCallClicked(data: TestClass2)
-        fun onDirectionClicked(data: TestClass2)
+        fun onCallClicked(data: String)
+        fun onDirectionClicked(data: String)
     }
 }

@@ -147,7 +147,8 @@ class BagFragment : Fragment() {
         categoryVM.updateQuantityCartResponse().observe(viewLifecycleOwner){ result ->
             when(result){
                 is NetworkResults.Success -> {
-                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
+                    Log.d("TAG", "updateCartQuantity: " + result.data.msg)
                 }
 
                 is NetworkResults.Error -> {

@@ -4,20 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bluerayws.avit.R
 import com.bluerayws.avit.databinding.ItemFavoriteBinding
-import com.bluerayws.avit.dataclass.ProductWishlist
 import com.bluerayws.avit.dataclass.ProductsOfSearching
-import com.bluerayws.avit.dataclass.SearchOfProducts
 import com.bluerayws.avit.ui.activities.ProductActivity
 import com.bumptech.glide.Glide
 
-class SearchingAdapter (private val list: List<ProductsOfSearching>,
-                        private val context: Context,
-                        private val favoriteClick: FavoriteClick) :
-    RecyclerView.Adapter<SearchingAdapter.Holder>() {
+class SearchingOfProductsAdapter (private val list: List<ProductsOfSearching>,
+                                  private val context: Context,
+                                  private val favoriteClick: FavoriteClick) :
+    RecyclerView.Adapter<SearchingOfProductsAdapter.Holder>() {
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {

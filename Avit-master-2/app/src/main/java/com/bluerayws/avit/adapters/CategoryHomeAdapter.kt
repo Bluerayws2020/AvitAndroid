@@ -34,7 +34,9 @@ class CategoryHomeAdapter(
         holder.binding.radioCategory.text = list[position].name_ar
 
         if (list[position].isSelected){
-            holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
+            holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context,
+                R.color.gray1
+            ))
             holder.binding.radioCategory.setTextColor(context.getColor(R.color.white))
             Log.d("Color Category Adapter", "onBindViewHolder: Color is black" + list[position].isSelected)
             list[position].isSelected = false
@@ -55,7 +57,7 @@ class CategoryHomeAdapter(
                 context.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
             preferences.edit().apply {
 
-                putString("cate_id", list[position].id)
+                putString("category_id", list[position].id)
 
             }.apply()
             notifyDataSetChanged()

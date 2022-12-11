@@ -23,6 +23,8 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     private val getSimilarItemsLiveData= MutableLiveData<NetworkResults<SimilarItemsMain>>()
     private val getProductsOfSearchingLiveData= MutableLiveData<NetworkResults<SearchOfProducts>>()
     private val updateQuantityCartLiveData= MutableLiveData<NetworkResults<UpdateCartQuantity>>()
+    private val getStoresLiveData = MutableLiveData<NetworkResults<Stores>>()
+    private val getCategoriesOfSearchingLiveData = MutableLiveData<NetworkResults<SearchOfCategories>>()
 
 
 
@@ -60,11 +62,12 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
 
 
 //    fun getRelatedProduct(
-//        product: Product
+//        language: String,
+//        productId: String
 //
 //    ) {
 //        viewModelScope.launch {
-//            getRelatedProductsLiveData.value =  categoryRepo.getRelatedProduct(product)
+//            getRelatedProductsLiveData.value =  categoryRepo.getRelatedProduct(language, productId)
 //
 //        }
 //    }
@@ -203,6 +206,35 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     }
 
 
+//    getStores
+
+    fun getStores(
+        language: String
+
+    ) {
+        viewModelScope.launch {
+            getStoresLiveData.value =  categoryRepo.getStores(language)
+
+        }
+    }
+
+
+
+//    searchOfCategories
+
+    fun searchOfCategories(
+        language: String,
+        name: String
+
+    ) {
+        viewModelScope.launch {
+            getCategoriesOfSearchingLiveData.value =  categoryRepo.searchOfCategories(language, name)
+
+        }
+    }
+
+
+
 
 
 
@@ -221,6 +253,8 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     fun getSimilarItemsResponse() = getSimilarItemsLiveData
     fun getProductsOfSearchingResponse() = getProductsOfSearchingLiveData
     fun updateQuantityCartResponse() = updateQuantityCartLiveData
+    fun getStoresResponse() = getStoresLiveData
+    fun getCategoriesOfSearchingResponse() = getCategoriesOfSearchingLiveData
 
 
 }

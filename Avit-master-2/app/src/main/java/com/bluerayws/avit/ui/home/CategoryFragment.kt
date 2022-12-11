@@ -1,5 +1,6 @@
 package com.bluerayws.avit.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bluerayws.avit.Helper.HelperUtils
 import com.bluerayws.avit.R
 import com.bluerayws.avit.Repo.CMainRepo
 import com.bluerayws.avit.Repo.NetworkResults
@@ -52,13 +54,20 @@ class CategoryFragment : Fragment() {
 
         binding?.search?.setOnClickListener {
             startActivity(Intent(requireActivity(), SearchActivity::class.java))
+            SearchActivity.ComeFromCategory = true
         }
 
         categoryApi()
 
+        val preferences =
+            context?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
 
         binding?.tvAll?.text  = "الكل"
         binding?.tvAll?.setOnClickListener {
+
+            preferences?.edit()?.apply {
+                putString("category_id", "0")
+            }?.apply()
 
             findNavController().navigate(
                 R.id.action_categoryFragment_to_homeFragment)
@@ -91,6 +100,7 @@ class CategoryFragment : Fragment() {
                             bundleOf(Pair(HomeFragment.CATEGORY_ID, it.id))
                         )
                     }
+
                     binding?.rvCategory?.addItemDecoration(
                         DividerItemDecoration(
                             requireContext(),
