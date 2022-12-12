@@ -160,8 +160,25 @@ class SearchActivity : AppCompatActivity(){  //,SearchView.OnQueryTextListener{
                     binding.rvSearch.layoutManager = lm
                     searchOfProductsAdapter  = SearchingOfProductsAdapter(productsList!!, applicationContext, object : FavoriteClick{
                         override fun onItemClicked(position: Int) {
-                            Toast.makeText(applicationContext, result.data.msg, Toast.LENGTH_SHORT).show()
-                            categoryVM.getRequestProduct(language, result.data.products[position].id, "Bearer $token")
+                            if (token == "") {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "You can't add items to your wish list, please register or login if you have an account!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+
+                                Toast.makeText(
+                                    applicationContext,
+                                    result.data.msg,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                categoryVM.getRequestProduct(
+                                    language,
+                                    result.data.products[position].id,
+                                    "Bearer $token"
+                                )
+                            }
                         }
 
                     })

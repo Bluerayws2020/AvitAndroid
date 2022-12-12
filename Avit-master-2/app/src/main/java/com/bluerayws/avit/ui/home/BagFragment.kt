@@ -22,8 +22,10 @@ import com.bluerayws.avit.adapters.ProductAdapter
 import com.bluerayws.avit.adapters.UpdateQuantity
 import com.bluerayws.avit.databinding.FragmentBagBinding
 import com.bluerayws.avit.dataclass.CustomerCartData
+import com.bluerayws.avit.dataclass.GuestCartData
 import com.bluerayws.avit.dataclass.ProductsDataMain
 import com.bluerayws.avit.dataclass.TestClass
+import com.bluerayws.avit.ui.activities.HomeActivity
 import java.util.*
 
 class BagFragment : Fragment() {
@@ -35,6 +37,8 @@ class BagFragment : Fragment() {
     private val categoryRepo = CMainRepo
     private val language: String = "ar"
     private var bagList: List<CustomerCartData>? = null
+//    private var guestBagList: List<GuestCartData>? = null
+
 
 
     override fun onCreateView(
@@ -56,12 +60,24 @@ class BagFragment : Fragment() {
 
         val token = sharedPreferences?.getString("access_token", "")
 
-        myBagApi()
-        categoryVM.getCustomerCart(language, "Bearer $token")
+        val deviceId = HelperUtils.getAndroidID(context)
 
-        removeBagItemsApi()
-        updateCartQuantity()
+        if(token == ""){
 
+            removeItemsFromGuestCartApi()
+            updateGuestCartQuantity()
+            getGuestCart()
+
+            categoryVM.getGuestCart(language, deviceId)
+        }
+        else{
+            removeBagItemsApi()
+            updateCartQuantity()
+            myBagApi()
+
+            categoryVM.getCustomerCart(language, "Bearer $token")
+
+        }
     }
 
     override fun onDestroyView() {
@@ -147,8 +163,88 @@ class BagFragment : Fragment() {
         categoryVM.updateQuantityCartResponse().observe(viewLifecycleOwner){ result ->
             when(result){
                 is NetworkResults.Success -> {
-//                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
-                    Log.d("TAG", "updateCartQuantity: " + result.data.msg)
+                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
+//                    Log.d("TAG", "updateCartQuantity: " + result.data.msg)
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(context, result.exception.toString(), Toast.LENGTH_LONG).show()
+                    result.exception.printStackTrace()
+                }
+            }
+        }
+    }
+
+
+    private fun getGuestCart(){
+
+        val deviceId = HelperUtils.getAndroidID(context)
+
+        categoryVM.getGuestCartResponse().observe(viewLifecycleOwner){ result ->
+            when(result){
+                is NetworkResults.Success -> {
+
+                    bagList = result.data.CategoriesList
+                    adapter = BagAdapter(bagList!!, requireActivity(), object : DeleteItemClicked{
+                        override fun removeItem(itemId: Int) {
+                            categoryVM.removeFromGuestCart(language, bagList!![itemId].id.toString())
+                        }
+
+                    }, object : UpdateQuantity{
+                        override fun updateQuantity(position:Int, quantity: Int) {
+                            categoryVM.updateGuestCartQuantity(language, deviceId, result.data.CategoriesList[position].product_id,
+                                quantity,
+                                result.data.CategoriesList[position].color_id,
+                                result.data.CategoriesList[position].size_id)
+
+                        }
+
+                    })
+                    binding?.rvBag?.addItemDecoration(
+                        DividerItemDecoration(
+                            requireContext(),
+                            RecyclerView.VERTICAL
+                        )
+                    )
+                    binding?.rvBag?.adapter = adapter
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(context, result.exception.toString(), Toast.LENGTH_LONG).show()
+                    result.exception.printStackTrace()
+                }
+            }
+        }
+
+    }
+
+
+
+//    removeFromGuestCart
+
+    private fun removeItemsFromGuestCartApi(){
+
+        categoryVM.deleteFromCartResponse().observe(viewLifecycleOwner){ result ->
+            when(result){
+                is NetworkResults.Success -> {
+                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
+                }
+
+                is NetworkResults.Error -> {
+                    Toast.makeText(context, result.exception.toString(), Toast.LENGTH_LONG).show()
+                    result.exception.printStackTrace()
+                }
+            }
+        }
+    }
+
+
+    private fun updateGuestCartQuantity(){
+
+        categoryVM.updateQuantityCartResponse().observe(viewLifecycleOwner){ result ->
+            when(result){
+                is NetworkResults.Success -> {
+                    Toast.makeText(context, result.data.msg, Toast.LENGTH_SHORT).show()
                 }
 
                 is NetworkResults.Error -> {

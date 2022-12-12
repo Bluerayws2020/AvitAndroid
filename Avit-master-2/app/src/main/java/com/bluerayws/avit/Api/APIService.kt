@@ -298,4 +298,50 @@ interface APIService {
     ): SearchOfCategories
 
 
+
+
+    // Guest Cases :-
+
+
+    @Multipart
+    @POST("guest/guestCart")
+    suspend fun getGuestCart(
+        @Part("lang") lang: RequestBody,
+        @Part("device_id") device_id: RequestBody
+
+    ): GuestCart
+
+
+    @Multipart
+    @POST("guest/guestAddToCart")
+    suspend fun addToGuestCart(
+        @Part("lang") lang: RequestBody,
+        @Part("product_id") product_id: RequestBody,
+        @Part("quantity") quantity: RequestBody,
+        @Part("color_id") color_id: RequestBody,
+        @Part("size_id") size_id: RequestBody,
+        @Part("device_id") device_id: RequestBody
+
+    ): AddToBag
+
+
+    @Multipart
+    @POST("guest/guestDeleteFromCart")
+    suspend fun deleteFromGuestCart(
+        @Part("lang") lang: RequestBody,
+        @Part("cart_temp_id") cart_temp_id: RequestBody
+
+    ): DeleteFromCart
+
+//    guest/guestUpdateCartQuantity
+
+
+    @Headers("Content-Type: application/json")
+    @POST("guest/guestUpdateCartQuantity")
+    suspend fun updateGuestCartQuantity(
+        @Body data: UpdateGuestCartsQuantity?
+
+    ): UpdateCartQuantity
+
+
 }

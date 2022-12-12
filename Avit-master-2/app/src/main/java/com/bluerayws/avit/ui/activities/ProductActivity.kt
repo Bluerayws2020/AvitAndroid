@@ -84,7 +84,15 @@ class ProductActivity : AppCompatActivity() {
             categoryVM.getProductsDetails(language, productId.toString())
 
             binding.favouriteClick.setOnClickListener {
-                categoryVM.getRequestProduct(language, productId.toString(), "Bearer $token")
+                if (token == "") {
+                    Toast.makeText(
+                        applicationContext,
+                        "You can't add items to your wish list, please register or login if you have an account!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    categoryVM.getRequestProduct(language, productId.toString(), "Bearer $token")
+                }
             }
         }
 
@@ -135,6 +143,12 @@ class ProductActivity : AppCompatActivity() {
 
         val token = sharedPreferences?.getString("access_token", "")
         val productId = intent.getStringExtra("product_id")
+        val deviceId = HelperUtils.getAndroidID(applicationContext)
+
+
+        if (token == ""){
+            addToBag()
+        }
 
 
         binding.btnAddItem.setOnClickListener{
@@ -148,6 +162,9 @@ class ProductActivity : AppCompatActivity() {
             }
             else if(sizeId == null){
                 Toast.makeText(applicationContext, "You have to choose the size you want", Toast.LENGTH_SHORT).show()
+            }
+            else if(token == ""){
+                categoryVM.addToGuestCart(language, productId.toString(),"1", colorId.toString(), sizeId.toString(), deviceId)
             }
             else{
                 categoryVM.addToBag(language, productId.toString(),"1", colorId.toString(), sizeId.toString(),"Bearer $token")
@@ -336,7 +353,14 @@ class ProductActivity : AppCompatActivity() {
                         rvSimilar.layoutManager = lm
                         similarAdapter = RelatedListAdapter(relatedProductList!!, applicationContext, object : FavoriteClick{
                             override fun onItemClicked(position: Int) {
+                                if(token == ""){
+                                    Toast.makeText(applicationContext,
+                                        "You can't add items to your wish list, please register or login if you have an account!",
+                                        Toast.LENGTH_SHORT).show()
+                                }
+                                else{
                                 categoryVM.getRequestProduct(language, response.body()!!.related_products[position].id, "Bearer $token")
+                            }
                             }
 
                         })

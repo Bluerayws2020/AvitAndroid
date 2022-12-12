@@ -31,7 +31,6 @@ class CategoryHomeAdapter(
     override fun onBindViewHolder(holder: CategoryHomeAdapter.Holder, position: Int) {
 
 
-        holder.binding.radioCategory.text = list[position].name_ar
 
         if (list[position].isSelected){
             holder.binding.radioCategory.setBackgroundColor(ContextCompat.getColor(context,
@@ -41,13 +40,25 @@ class CategoryHomeAdapter(
             Log.d("Color Category Adapter", "onBindViewHolder: Color is black" + list[position].isSelected)
             list[position].isSelected = false
 
-        }else{
+        }
+
+        else{
             holder.binding.radioCategory.setBackgroundResource(R.drawable.selector_prand)
             holder.binding.radioCategory.setTextColor(context.getColor(R.color.black))
             Log.d("Color Category Adapter0", "onBindViewHolder: Color is black" + list[position].isSelected)
 
-
         }
+
+        if(position == 0) {
+            holder.binding.radioCategory.text = "الكل"
+        }
+
+
+         if(position > 0) {
+             holder.binding.radioCategory.text = list[position].name_en
+        }
+
+
         holder.binding.radioCategory.setOnClickListener {
             onclickListener(list[position])
 

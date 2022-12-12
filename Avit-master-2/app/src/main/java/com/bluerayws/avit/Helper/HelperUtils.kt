@@ -75,7 +75,7 @@ object HelperUtils {
     }
 
     //open login activity for guest user
-    fun openLoginActivity(mContext: Context?) {
+    private fun openLoginActivity(mContext: Context?) {
         Toast.makeText(mContext, mContext?.getString(R.string.guest_login), Toast.LENGTH_LONG)
             .show()
         val splashIntent = Intent(mContext, SplashActivity::class.java)

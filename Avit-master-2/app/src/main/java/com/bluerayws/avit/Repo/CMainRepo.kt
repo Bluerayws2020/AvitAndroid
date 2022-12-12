@@ -846,6 +846,146 @@ object CMainRepo {
     }
 
 
+    // Guest Cases :-
+
+
+    suspend fun getGuestCart(
+        language: String,
+        deviceId: String
+
+    ): NetworkResults<GuestCart> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val deviceIdBody = deviceId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.getGuestCart(
+                    langBody,
+                    deviceIdBody
+                )
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Guest Cart Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+//    addToGuestCart
+
+    suspend fun addToGuestCart(
+        language: String,
+        productId: String,
+        quantity: String,
+        colorId: String,
+        sizeId: String,
+        deviceId: String
+
+    ): NetworkResults<AddToBag> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val productIdBody = productId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val quantityBody = quantity.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val colorIdBody = colorId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val sizeIdBody = sizeId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val deviceIdBody = deviceId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.addToGuestCart(
+                    langBody,
+                    productIdBody,
+                    quantityBody,
+                    colorIdBody,
+                    sizeIdBody,
+                    deviceIdBody
+                )
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Add to Guest Cart Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+
+//    deleteFromGuestCart
+
+    suspend fun removeFromGuestCart(
+        language: String,
+        cartItemId: String
+
+    ): NetworkResults<DeleteFromCart> {
+        return withContext(Dispatchers.IO) {
+
+            val langBody = language.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val cartItemIdBody = cartItemId.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            try {
+                val results = ApiClient.retrofitService.deleteFromGuestCart(
+                    langBody,
+                    cartItemIdBody
+                )
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Delete Item From Guest Cart Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
+
+//    updateGuestCartQuantity
+
+    suspend fun updateGuestCartQuantity(
+        language: String,
+        deviceId: String,
+        productId: String,
+        quantity: Int,
+        colorId: String,
+        sizeId: String,
+
+    ): NetworkResults<UpdateCartQuantity> {
+        return withContext(Dispatchers.IO) {
+
+            try {
+                val results = ApiClient.retrofitService.updateGuestCartQuantity(
+                    UpdateGuestCartsQuantity(language, deviceId,
+                        listOf(
+                            UpdateData(
+                                productId, quantity, colorId, sizeId
+                            )
+                        )
+                    ))
+
+
+                NetworkResults.Success(results)
+
+            } catch (e: Exception) {
+                Log.d("Update Guest Cart Quantity Error Repo : ", e.message.toString())
+                NetworkResults.Error(e)
+
+            }
+        }
+    }
+
+
 
 
 }

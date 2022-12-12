@@ -468,7 +468,7 @@ data class CustomerCartData(
     @SerializedName ("id") val id: Int,
     @SerializedName ("user_id") val user_id: Int,
     @SerializedName ("user_type") val user_type: String,
-//    @SerializedName ("device_id") val device_id: String,
+    @SerializedName ("device_id") val device_id: String,
     @SerializedName ("product_id") val product_id: String,
     @SerializedName ("quantity") val quantity: String,
     @SerializedName ("size_id") val size_id: String,
@@ -605,6 +605,13 @@ data class UpdateQuantity(
     @SerializedName ("data") val data: List<UpdateData>
 )
 
+
+data class UpdateGuestCartsQuantity(
+    @SerializedName ("lang") val lang: String,
+    @SerializedName ("device_id") val device_id: String,
+    @SerializedName ("data") val data: List<UpdateData>
+)
+
 data class UpdateData(
     @SerializedName ("product_id") val product_id: String,
     @SerializedName ("quantity") val quantity: Int,
@@ -656,5 +663,45 @@ data class CategoriesList(
     @SerializedName ("show_in_menu_status") val show_in_menu_status: String,
     @SerializedName ("order_in_menu") val order_in_menu: String,
     @SerializedName ("image") val image: String
+
+    )
+
+
+
+
+
+// Guest Cases:
+
+data class GuestCart(
+    @SerializedName ("status") val status: Boolean,
+    @SerializedName ("errNum") val errNum: String,
+    @SerializedName ("msg") val msg: String,
+    @SerializedName ("customer_cart") val CategoriesList: List<CustomerCartData>
+
+    )
+
+
+data class GuestCartData(
+    @SerializedName ("id") val id: Int,
+    @SerializedName ("user_id") val user_id: Int,
+    @SerializedName ("user_type") val user_type: String,
+    @SerializedName ("device_id") val device_id: String,
+    @SerializedName ("product_id") val product_id: String,
+    @SerializedName ("quantity") val quantity: String,
+    @SerializedName ("size_id") val size_id: String,
+    @SerializedName ("color_id") val color_id: String,
+    @SerializedName ("created_at") val created_at: String,
+    @SerializedName ("updated_at") val updated_at: String,
+    @SerializedName ("itemPrice") val itemPrice: String,
+    @SerializedName ("itemSubTotal") val itemSubTotal: String,
+    @SerializedName ("itemTax") val itemTax: String,
+    @SerializedName ("itemEndTotal") val itemEndTotal: String,
+    @SerializedName ("product_name_en") val product_name_en: String,
+    @SerializedName ("product_name_ar") val product_name_ar: String,
+    @SerializedName ("product_image") val product_image: String,
+    @SerializedName ("size_name_en") val size_name_en: String,
+    @SerializedName ("size_name_ar") val size_name_ar: String,
+    @SerializedName ("color_name_en") val color_name_en: String,
+    @SerializedName ("color_name_ar") val color_name_ar: String
 
     )

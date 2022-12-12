@@ -107,8 +107,18 @@ class FavoriteFragment : Fragment(), ItemClicked {
                     binding?.rvFavorite?.layoutManager = lm
                     val productAdapter = ProductAdapter(wishList!!, requireContext(), 1, object : FavoriteClick{
                         override fun onItemClicked(position: Int) {
-                            categoryVM.getRequestProduct(language, result.data.Product_Wishlist[position].product_id, "Bearer $token")
-
+                            if(token == ""){
+                                Toast.makeText(requireContext(),
+                                    "You can't add items to your wish list, please register or login if you have an account!",
+                                    Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                categoryVM.getRequestProduct(
+                                    language,
+                                    result.data.Product_Wishlist[position].product_id,
+                                    "Bearer $token"
+                                )
+                            }
                         }
 
                     })
@@ -126,12 +136,19 @@ class FavoriteFragment : Fragment(), ItemClicked {
 
     private fun removeProductToWishList(){
 
+
+        val token = HomeActivity.tokenObj
+
         categoryVM.getRequestProductsResponse().observe(viewLifecycleOwner){ result ->
             when(result){
                 is NetworkResults.Success -> {
 
-                    Toast.makeText(requireContext(), result.data.msg, Toast.LENGTH_SHORT).show()
-
+                    if(token == ""){
+                        Toast.makeText(requireContext(), "You can't add items to your wish list, please register or login if you have an account!", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(requireContext(), result.data.msg, Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 is NetworkResults.Error -> {
@@ -157,8 +174,16 @@ class FavoriteFragment : Fragment(), ItemClicked {
                     binding?.rvSimilarProducts?.layoutManager = lm
                     val similarItemsAdapter = SimilarItemsAdapter(similarList!!, requireContext(), object : FavoriteClick{
                         override fun onItemClicked(position: Int) {
-                            categoryVM.getRequestProduct(language, result.data.products_data[position].product_id, "Bearer $token")
-
+                            if(token == ""){
+                                Toast.makeText(requireContext(), "You can't add items to your wish list, please register or login if you have an account!", Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                categoryVM.getRequestProduct(
+                                    language,
+                                    result.data.products_data[position].product_id,
+                                    "Bearer $token"
+                                )
+                            }
                         }
 
                     })

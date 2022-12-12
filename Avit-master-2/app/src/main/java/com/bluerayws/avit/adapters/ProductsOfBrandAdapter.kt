@@ -12,6 +12,7 @@ import com.bluerayws.avit.databinding.ItemFavoriteBinding
 import com.bluerayws.avit.dataclass.BrandItemsMain
 import com.bluerayws.avit.dataclass.Categories
 import com.bluerayws.avit.dataclass.ProductsDataMain
+import com.bluerayws.avit.ui.activities.HomeActivity
 import com.bluerayws.avit.ui.activities.ProductActivity
 
 class ProductsOfBrandAdapter(private val list: List<BrandItemsMain>, private val context: Context
@@ -32,10 +33,15 @@ class ProductsOfBrandAdapter(private val list: List<BrandItemsMain>, private val
             holder.binding.productName.text = data.name_ar
         holder.binding.productPrice.text = data.sale_price
 
+            val token = HomeActivity.tokenObj
 
             holder.binding.favouriteClick.setOnClickListener{
-                favClick.onItemClicked(position)
-//            data.wishlist = 1
+                if(token == ""){
+
+                }
+                else{
+                    favClick.onItemClicked(position)
+                }
             }
             Log.d("WIsh List: ", "onBindViewHolder: " + data.wishlist)
 

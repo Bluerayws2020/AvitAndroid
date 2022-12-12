@@ -25,6 +25,8 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     private val updateQuantityCartLiveData= MutableLiveData<NetworkResults<UpdateCartQuantity>>()
     private val getStoresLiveData = MutableLiveData<NetworkResults<Stores>>()
     private val getCategoriesOfSearchingLiveData = MutableLiveData<NetworkResults<SearchOfCategories>>()
+    private val getGuestCartLiveData = MutableLiveData<NetworkResults<GuestCart>>()
+
 
 
 
@@ -235,6 +237,63 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
 
 
 
+//    getGuestCart
+
+    fun getGuestCart(
+        language: String,
+        deviceId: String
+
+    ) {
+        viewModelScope.launch {
+            getGuestCartLiveData.value =  categoryRepo.getGuestCart(language, deviceId)
+
+        }
+    }
+//    addToGuestCart
+
+    fun addToGuestCart(
+        language: String,
+        productId: String,
+        quantity: String,
+        colorId: String,
+        sizeId: String,
+        deviceId: String
+
+    ) {
+    viewModelScope.launch {
+        addToBagLiveData.value =  categoryRepo.addToGuestCart(language, productId, quantity, colorId, sizeId, deviceId)
+
+    }
+}
+
+
+    fun removeFromGuestCart(
+        language: String,
+        cartItemId: String,
+    ) {
+        viewModelScope.launch {
+            removeFromCartLiveData.value =  categoryRepo.removeFromGuestCart(language, cartItemId)
+
+        }
+    }
+
+//    updateGuestCartQuantity
+
+
+    fun updateGuestCartQuantity(
+        language: String,
+        deviceId: String,
+        productId: String,
+        quantity: Int,
+        colorId: String,
+        sizeId: String,
+    ) {
+        viewModelScope.launch {
+            updateQuantityCartLiveData.value =  categoryRepo.updateGuestCartQuantity(language, deviceId, productId, quantity, colorId, sizeId)
+
+        }
+    }
+
 
 
 
@@ -255,6 +314,7 @@ class CategoryViewModel(private val categoryRepo:CMainRepo):ViewModel (){
     fun updateQuantityCartResponse() = updateQuantityCartLiveData
     fun getStoresResponse() = getStoresLiveData
     fun getCategoriesOfSearchingResponse() = getCategoriesOfSearchingLiveData
+    fun getGuestCartResponse() = getGuestCartLiveData
 
 
 }

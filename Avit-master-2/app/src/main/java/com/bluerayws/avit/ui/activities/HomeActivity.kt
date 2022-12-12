@@ -64,6 +64,9 @@ class HomeActivity : AppCompatActivity() {
             }.apply()
         }
 
+        val deviceId = HelperUtils.getAndroidID(applicationContext)
+        Log.d("Device Id = ", "onCreate: $deviceId")
+
 
 
         // get category id from CategoryAdapter0.kt using putExtra
@@ -72,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
 
 
 
-        val token = sharedPreferences.getString("access_token", "defaultname")
+        val token = sharedPreferences.getString("access_token", "")
         if (token != null) {
             tokenObj = token
         }

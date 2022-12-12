@@ -81,9 +81,7 @@ class HomeFragment : Fragment(), ItemClicked {
             context?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
 //        val catId = preferences?.getString("cate_id", "cate_id")
         val categoryId = preferences?.getString("category_id", "category_id")
-//        val cateId = preferences?.getString("categoryId", "categoryId")
 
-//        Log.d("Cate0", "onViewCreated:  Categ Id$cateId")
 
         sliderImage()
 //        radioButton()
@@ -99,17 +97,9 @@ class HomeFragment : Fragment(), ItemClicked {
         categoryVM.getBrands(language)
 
         addProductToWishList()
+
         Log.d("catId1", "onViewCreated: $categoryId")
-//        Log.d("catId2", "onViewCreated: $catId")
-
-
-//        if(cateId != "0") {
-            categoryVM.getProductsByCateId(language, categoryId.toString())
-//        }
-//        else{
-//            categoryVM.getProductsByCateId(language, cateId.toString())
-//        }
-
+        categoryVM.getProductsByCateId(language, categoryId.toString())
 
         categoryApi()
         categoryVM.getCategories(language)
@@ -161,7 +151,7 @@ class HomeFragment : Fragment(), ItemClicked {
         val lm = GridLayoutManager(context, 2)
         val sharedPreferences =
             context?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
-        val token = sharedPreferences?.getString("access_token", "defaultname")
+        val token = sharedPreferences?.getString("access_token", "")
         Log.d("token home: ", "onViewCreated: $token")
 
         categoryVM.getProductsByCateIdResponse().observe(viewLifecycleOwner){ result ->
@@ -173,8 +163,20 @@ class HomeFragment : Fragment(), ItemClicked {
                     homeList = result.data.products_data
                     binding?.rvHome?.layoutManager = lm
                     val productHomeAdapter = ProductHomeAdapter(homeList!!, requireContext(), object : FavoriteClick{
-                        override fun onItemClicked(position: Int){
-                            categoryVM.getRequestProduct(language, result.data.products_data[position].id, "Bearer $token")
+                        override fun onItemClicked(position: Int) {
+                            if (token == "") {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "You can't add items to your wish list, please register or login if you have an account!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                categoryVM.getRequestProduct(
+                                    language,
+                                    result.data.products_data[position].id,
+                                    "Bearer $token"
+                                )
+                            }
                         }
 
                     })
@@ -232,7 +234,7 @@ class HomeFragment : Fragment(), ItemClicked {
 
         val sharedPreferences =
             context?.getSharedPreferences(HelperUtils.SHARED_PREF, Context.MODE_PRIVATE)
-        val token = sharedPreferences?.getString("access_token", "defaultname")
+        val token = sharedPreferences?.getString("access_token", "")
 
         val lm = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
@@ -246,13 +248,21 @@ class HomeFragment : Fragment(), ItemClicked {
 
                     val productsOfBrandAdapter = ProductsOfBrandAdapter(prodBrandList!!, requireActivity(), object : FavoriteClick{
                         override fun onItemClicked(position: Int){
+                            if(token == ""){
+                                Toast.makeText(requireContext(),
+                                    "You can't add items to your wish list, please register or login if you have an account!",
+                                    Toast.LENGTH_SHORT).show()
+                            }
+                            else{
                             categoryVM.getRequestProduct(language, result.data.products_data[position].id, "Bearer $token")
-                        }
+                        }}
 
                     })
 
 
                     binding?.rvHome?.adapter = productsOfBrandAdapter
+
+                    binding?.textView18?.text = prodBrandList!!.size.toString() + " " + "Items"
 
                 }
 
@@ -267,12 +277,17 @@ class HomeFragment : Fragment(), ItemClicked {
 
     private fun addProductToWishList(){
 
+        val token = HomeActivity.tokenObj
+
         categoryVM.getRequestProductsResponse().observe(viewLifecycleOwner){ result ->
             when(result){
                 is NetworkResults.Success -> {
-
-                    Toast.makeText(requireContext(), result.data.msg, Toast.LENGTH_SHORT).show()
-
+                    if(token == ""){
+                        Toast.makeText(requireContext(), "You can't add items to your wish list, please register or login if you have an account!", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        Toast.makeText(requireContext(), result.data.msg, Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 is NetworkResults.Error -> {
